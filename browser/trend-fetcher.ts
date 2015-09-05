@@ -29,6 +29,7 @@ export default class TrendFetcher {
     }
 
     sendToRenderer(repos: Object[]): void {
+        console.log('Fetcher send result: ' + repos.length);
         this.renderer.send('repositories', repos);
     }
 

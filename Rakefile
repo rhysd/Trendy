@@ -44,9 +44,9 @@ task :build_browser_src => %i(typings) do
 end
 
 task :build_renderer_src do
-  # directory 'build'
-  # directory 'build/renderer'
-  # sh "#{BIN}/browserify -t babelify -d -o #{ROOT}/build/renderer/index.js #{ROOT}/renderer/index.jsx"
+  directory 'build'
+  directory 'build/renderer'
+  sh "#{BIN}/browserify -t babelify -d -o #{ROOT}/build/renderer/index.js #{ROOT}/renderer/index.jsx"
 end
 
 task :build => %i(dep build_browser_src build_renderer_src)

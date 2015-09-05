@@ -1,14 +1,14 @@
-declare module GitHubTrend {
-    interface Repository {
+declare module 'github-trend' {
+    export interface Repository {
         owner: string;
         name: string;
     }
 
-    interface ScraperConfig {
+    export interface ScraperConfig {
         proxy?: string;
     }
 
-    interface Language {
+    export interface Language {
         color: string;
         aliases? : string[];
     }
@@ -29,3 +29,4 @@ declare module GitHubTrend {
         fetchTrendings(langs: string[]): Promise<Object[]>;
     }
 }
+
