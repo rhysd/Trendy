@@ -1,0 +1,7 @@
+bower_components
+node_modules
+npm-debug.log
+app.asar
+typings
+build
+*.js.map

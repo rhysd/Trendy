@@ -1,0 +1,32 @@
+{
+  "name": "trendy",
+  "productName": "Trendy",
+  "version": "0.0.1",
+  "description": "Menubar app to keep you in the loop of trend",
+  "main": "./build/browser/main.js",
+  "bin": {
+    "stream": "./bin/cli.js"
+  },
+  "author": "rhysd <lin90162@yahoo.co.jp>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rhysd/Trendy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhysd/Trendy/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "./bin/cli.js"
+  },
+  "dependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.0.1",
+    "electron-prebuilt": "^0.31.2",
+    "flux": "^2.1.1",
+    "github-trend": "0.0.1",
+    "menubar": "^2.2.0",
+    "react": "^0.13.3"
+  }
+}
