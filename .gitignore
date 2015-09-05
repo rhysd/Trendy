@@ -5,3 +5,4 @@ app.asar
 typings
 build
 *.js.map
+test.json
