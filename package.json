@@ -20,13 +20,15 @@
     "start": "./bin/cli.js"
   },
   "dependencies": {
-    "babel": "^5.8.23",
-    "babelify": "^6.3.0",
-    "browserify": "^11.0.1",
-    "electron-prebuilt": "^0.31.2",
     "flux": "^2.1.1",
     "github-trend": "0.0.1",
     "menubar": "^2.2.0",
     "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.0.1",
+    "electron-prebuilt": "^0.31.2"
   }
 }
