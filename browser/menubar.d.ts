@@ -15,7 +15,8 @@ declare class MenuBar implements NodeJS.EventEmitter {
     setMaxListeners(n: number): void;
     listeners(event: string): Function[];
     emit(event: string, ...args: any[]): boolean;
-
+    showWindow(): void;
+    hideWindow(): void;
     addListener(event: string, listener: Function): MenuBar;
     tray: GitHubElectron.Tray;
     app: GitHubElectron.App;

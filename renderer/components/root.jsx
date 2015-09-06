@@ -38,7 +38,7 @@ export default class Root extends React.Component {
                     </nav>
                 </div>
                 <div className="contents">
-                    <RepositoryList repos={this.state.repos}/>
+                    <RepositoryList repos={this.state.repos} lang={""}/>
                 </div>
                 <div className="root-footer"/>
             </div>
