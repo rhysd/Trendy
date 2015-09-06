@@ -7,13 +7,13 @@ export default class Root extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            repos: RepoStore.getAll()
+            repos: RepoStore.getAllRepos()
         };
         this.repo_receiver = new RepoReceiver();
     }
 
     componentDidMount() {
-        this.repo_listener = () => this.setState({repos: RepoStore.getAll()});
+        this.repo_listener = () => this.setState({repos: RepoStore.getCurrentRepos()});
         RepoStore.on('updated', this.repo_listener);
     }
 
@@ -21,6 +21,15 @@ export default class Root extends React.Component {
         if (this.repo_listener) {
             RepoStore.removeListener('updated', this.repo_listener);
         }
+    }
+
+    prepareRepositoryLists() {
+        let idx = 0;
+        let lists = [];
+        for (const lang in this.state.repos) {
+            lists.push(<RepositoryList repos={this.state.repos[lang]} lang={lang} key={idx++}/>);
+        }
+        return lists;
     }
 
     render() {
@@ -41,12 +50,12 @@ export default class Root extends React.Component {
                     </div>
                     <nav className="tabnav-tabs">
                         <a href="#" className="tabnav-tab">New <span className="counter">0</span></a>
-                        <a href="#" className="tabnav-tab selected">All</a>
-                        <a href="#" className="tabnav-tab">History</a>
+                        <a href="#" className="tabnav-tab selected">Current</a>
+                        <a href="#" className="tabnav-tab">All</a>
                     </nav>
                 </div>
                 <div className="contents">
-                    <RepositoryList repos={this.state.repos} lang={""}/>
+                    {this.prepareRepositoryLists()}
                 </div>
                 <div className="root-footer">
                     <span className="octicon octicon-sync"/>

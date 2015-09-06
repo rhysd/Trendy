@@ -26,7 +26,7 @@ declare module 'github-trend' {
         constructor(config?: ScraperConfig);
         fetchGetAPI(repo: Repository): Promise<Object>;
         fetchTrending(lang: string): Promise<Object[]>;
-        fetchTrendings(langs: string[]): Promise<Object[]>;
+        fetchTrendings(langs: string[]): Promise<Object>;
     }
 }
 

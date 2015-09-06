@@ -17,7 +17,7 @@ export default class TrendFetcher {
         // TODO: Temporary
         fs.readFile('test.json', {encoding: 'utf8'}, (err, data) => {
             if (err) {
-                const trendings = this.client.fetchTrending('').then(repos => {
+                const trendings = this.client.fetchTrendings(['']).then(repos => {
                     this.sendToRenderer(repos);
                     fs.writeFile('test.json', JSON.stringify(repos, null, 2));
                     console.log('sent!');
@@ -28,8 +28,8 @@ export default class TrendFetcher {
         });
     }
 
-    sendToRenderer(repos: Object[]): void {
-        console.log('Fetcher send result: ' + repos.length);
+    sendToRenderer(repos: Object): void {
+        console.log('Fetcher send result: ' + Object.keys(repos).length);
         this.renderer.send('repositories', repos);
     }
 
