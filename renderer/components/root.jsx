@@ -1,6 +1,7 @@
 import React from 'react';
 import RepoStore from '../store';
 import RepoReceiver from '../repo-receiver';
+import RepositoryList from './repository-list.jsx';
 
 export default class Root extends React.Component {
     constructor(props) {
@@ -25,7 +26,19 @@ export default class Root extends React.Component {
     render() {
         return (
             <div className="root">
-                {this.state.repos.map((r, i) => <div key={i}>{r.full_name}</div>)}
+                <div className="tabnav">
+                    <div className="tabnav-extra right">
+                        Tabnav widget text here.
+                    </div>
+                    <nav className="tabnav-tabs">
+                        <a href="#" className="tabnav-tab">New</a>
+                        <a href="#" className="tabnav-tab selected">All</a>
+                        <a href="#" className="tabnav-tab">History</a>
+                    </nav>
+                </div>
+                <div className="contents">
+                    <RepositoryList repos={this.state.repos}/>
+                </div>
             </div>
         );
     }

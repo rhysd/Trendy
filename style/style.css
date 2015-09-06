@@ -1,0 +1,14 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  background-color: #333333;
+}
+.root {
+  margin: 1rem;
+  background-color: white;
+  border-radius: 3px;
+}
+.contents {
+  background-color: white;
+}
