@@ -6,11 +6,23 @@ export default class TrendFetcher {
 
     constructor(private renderer: GitHubElectron.WebContents, proxy?: string) {
         this.client = new GHT.Client({proxy: proxy});
+        this.stopped = true;
     }
 
     start() {
+        this.stopped = false;
+
         // TODO: Temporary
         this.doScraping();
+        const poll = () => {
+            if (this.stopped) {
+                return;
+            }
+            console.log('Update!: ' + new Date(Date.now()).toLocaleString());
+            this.doScraping();
+            setTimeout(poll, 1800000);
+        }
+        setTimeout(poll, 1800000);
     }
 
     doScraping() {
@@ -34,6 +46,6 @@ export default class TrendFetcher {
     }
 
     stop(): void {
-        // TODO
+        this.stopped = true;
     }
 }

@@ -54,6 +54,11 @@ function _updateRepos(new_repos) {
             store.all_repos[lang][repo.full_name] = repo;
         }
     }
+
+    console.log('Store Updated:');
+    console.log('  unread: ' + JSON.stringify(store.unread_repos));
+    console.log('  current: ' + JSON.stringify(store.current_repos));
+    console.log('  all: ' + JSON.stringify(store.all_repos));
     store.emit('updated');
 }
 
