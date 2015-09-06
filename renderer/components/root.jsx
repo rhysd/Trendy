@@ -29,7 +29,15 @@ export default class Root extends React.Component {
                 <div className="root-header"/>
                 <div className="tabnav">
                     <div className="tabnav-extra right">
-                        Search by language name
+                        <select className="select select-sm">
+                            <option>Language</option>
+                            <option>all</option>
+                            <option>vim</option>
+                            <option>go</option>
+                            <option>rust</option>
+                            <option>javascript</option>
+                            <option>c++</option>
+                        </select>
                     </div>
                     <nav className="tabnav-tabs">
                         <a href="#" className="tabnav-tab">New <span className="counter">0</span></a>
@@ -40,7 +48,10 @@ export default class Root extends React.Component {
                 <div className="contents">
                     <RepositoryList repos={this.state.repos} lang={""}/>
                 </div>
-                <div className="root-footer"/>
+                <div className="root-footer">
+                    <span className="octicon octicon-sync"/>
+                    <span className="octicon octicon-gear"/>
+                </div>
             </div>
         );
     }
