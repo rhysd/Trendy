@@ -26,6 +26,7 @@ export default class Root extends React.Component {
     render() {
         return (
             <div className="root">
+                <div className="root-header"/>
                 <div className="tabnav">
                     <div className="tabnav-extra right">
                         Tabnav widget text here.
@@ -39,6 +40,7 @@ export default class Root extends React.Component {
                 <div className="contents">
                     <RepositoryList repos={this.state.repos}/>
                 </div>
+                <div className="root-footer"/>
             </div>
         );
     }
