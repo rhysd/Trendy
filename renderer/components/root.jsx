@@ -29,10 +29,10 @@ export default class Root extends React.Component {
                 <div className="root-header"/>
                 <div className="tabnav">
                     <div className="tabnav-extra right">
-                        Tabnav widget text here.
+                        Search by language name
                     </div>
                     <nav className="tabnav-tabs">
-                        <a href="#" className="tabnav-tab">New</a>
+                        <a href="#" className="tabnav-tab">New <span className="counter">0</span></a>
                         <a href="#" className="tabnav-tab selected">All</a>
                         <a href="#" className="tabnav-tab">History</a>
                     </nav>

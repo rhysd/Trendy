@@ -10,7 +10,7 @@ export default class RepositoryList extends React.Component {
         return (
             <div className="repos">
                 <div className="lang">
-                    <span className="octicon octicon-pulse"/>{this.props.lang ? this.props.lang : "all languages"}
+                    <span className="octicon octicon-pulse"/>{this.props.lang ? this.props.lang : "all languages"}<span className="counter">{this.props.repos.length}</span>
                 </div>
                 <div className="repo-list">
                     {this.props.repos.map((r, i) => <Repository key={i} repo={r}/>)}

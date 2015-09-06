@@ -17,8 +17,8 @@ export default class Repository extends React.Component {
                         <span className={this.titleIcon()}/><a href={this.props.repo.owner.html_url}>{this.props.repo.owner.login}</a> / <a href={this.props.repo.html_url}>{this.props.repo.name}</a>
                     </div>
                     <div className="metadata">
-                        <span className="octicon octicon-star"/>{this.props.repo.stargazers_count}
-                        <span className="octicon octicon-eye"/>{this.props.repo.watchers_count}
+                        <span className="counter"><span className="octicon octicon-star"/>{this.props.repo.stargazers_count}</span>
+                        <span className="counter"><span className="octicon octicon-eye"/>{this.props.repo.watchers_count}</span>
                     </div>
                 </div>
                 <div className="primary">
