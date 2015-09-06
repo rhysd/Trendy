@@ -45,20 +45,20 @@ function _updateRepos(new_repos) {
             }
 
             if (store.all_repos[lang][repo.full_name] === undefined) {
-                if (store.current_repos[lang] === undefined) {
-                    store.current_repos[lang] = {};
+                if (store.unread_repos[lang] === undefined) {
+                    store.unread_repos[lang] = {};
                 }
-                store.current_repos[lang][repo.full_name] = repo;
+                console.log('Added to unread: ' + repo.full_name);
+                store.unread_repos[lang][repo.full_name] = repo;
             }
 
+            console.log('Added to all: ' + repo.full_name);
             store.all_repos[lang][repo.full_name] = repo;
         }
     }
 
-    console.log('Store Updated:');
-    console.log('  unread: ' + JSON.stringify(store.unread_repos));
-    console.log('  current: ' + JSON.stringify(store.current_repos));
-    console.log('  all: ' + JSON.stringify(store.all_repos));
+    // TODO: Save store to local storage
+
     store.emit('updated');
 }
 
