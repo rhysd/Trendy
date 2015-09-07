@@ -15,28 +15,22 @@ export default class TrendFetcher {
     start() {
         this.stopped = false;
 
-        const poll = () => {
+        const do_polling = () => {
             if (this.stopped) {
                 return;
             }
             console.log('Update!: ' + new Date(Date.now()).toLocaleString());
             this.doScraping();
-            setTimeout(poll, POLLING_INTERVAL);
+            setTimeout(do_polling, POLLING_INTERVAL);
         }
-        poll();
+        do_polling();
     }
 
     doScraping() {
-        // TODO: Temporary
-        fs.readFile('test.json', {encoding: 'utf8'}, (err, data) => {
-            if (err) {
-                const trendings = this.client.fetchTrendings(['']).then(repos => {
-                    this.sendToRenderer(repos);
-                    fs.writeFile('test.json', JSON.stringify(repos, null, 2));
-                });
-            } else {
-                this.sendToRenderer(JSON.parse(data));
-            }
+        this.client.fetchTrendings(['']).then(repos => {
+            this.sendToRenderer(repos);
+        }).catch((err: Error) => {
+            console.log('doScraping: error: ' + err.message);
         });
     }
 

@@ -3,6 +3,10 @@ import Dispatcher from './dispatcher';
 import {ActionKind} from './constants';
 import {ActionType} from './actions';
 
+const USER_DIR = global.require('remote').require('app').getPath('userData');
+const DATA_FILE_PATH = global.require('path').join(USER_DIR, 'repos.json');
+const fs = global.require('fs');
+
 class RepoStore extends EventEmitter {
     unread_repos: Object;
     current_repos: Object;
@@ -13,9 +17,19 @@ class RepoStore extends EventEmitter {
         super();
 
         // TODO: Load from local storage
-        this.unread_repos = {};
-        this.current_repos = {};
-        this.all_repos = {};
+        fs.readFile(DATA_FILE_PATH, {encoding: 'utf8'}, (err: Error, data: string) => {
+            if (err) {
+                this.unread_repos = {};
+                this.current_repos = {};
+                this.all_repos = {};
+                return;
+            }
+
+            const loaded = JSON.parse(data);
+            this.unread_repos = loaded.unread_repos;
+            this.current_repos = loaded.current_repos;
+            this.all_repos = loaded.all_repos;
+        });
     }
 
     getAllRepos() {
@@ -64,9 +78,19 @@ function _updateRepos(new_repos: Object) {
         }
     }
 
-    // TODO: Save store to local storage
-
     store.emit('updated');
+
+    // TODO: Save store to local storage
+    fs.writeFile(
+            DATA_FILE_PATH,
+            {encoding: 'utf8'},
+            JSON.stringify({
+                unread_repos: this.unread_repos,
+                current_repos: this.current_repos,
+                all_repos: this.all_repos,
+            }),
+            (err: Error) => console.log('_updateRepos: error: ' + err.message)
+        );
 }
 
 store.dispatch_token = Dispatcher.register((action: ActionType) => {
