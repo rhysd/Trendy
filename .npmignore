@@ -1,0 +1,10 @@
+bower.json
+Guardfile
+Rakefile
+browser
+renderer
+tsd.json
+tslint.json
+test.json
+typings
+renderer-ts-ignored
