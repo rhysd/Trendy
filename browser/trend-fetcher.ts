@@ -1,6 +1,8 @@
 import * as GHT from 'github-trend'
 import * as fs from 'fs';
 
+const POLLING_INTERVAL = 3600000; // 1 hour
+
 export default class TrendFetcher {
     client: GHT.Client;
     stopped: boolean;
@@ -13,17 +15,15 @@ export default class TrendFetcher {
     start() {
         this.stopped = false;
 
-        // TODO: Temporary
-        this.doScraping();
         const poll = () => {
             if (this.stopped) {
                 return;
             }
             console.log('Update!: ' + new Date(Date.now()).toLocaleString());
             this.doScraping();
-            setTimeout(poll, 1800000);
+            setTimeout(poll, POLLING_INTERVAL);
         }
-        setTimeout(poll, 1800000);
+        poll();
     }
 
     doScraping() {
@@ -33,7 +33,6 @@ export default class TrendFetcher {
                 const trendings = this.client.fetchTrendings(['']).then(repos => {
                     this.sendToRenderer(repos);
                     fs.writeFile('test.json', JSON.stringify(repos, null, 2));
-                    console.log('sent!');
                 });
             } else {
                 this.sendToRenderer(JSON.parse(data));
@@ -42,7 +41,10 @@ export default class TrendFetcher {
     }
 
     sendToRenderer(repos: Object): void {
-        console.log('Fetcher send result: ' + Object.keys(repos).length);
+        console.log('sent from browser process:');
+        for (const lang in repos) {
+            console.log('  ' + lang + ': ' + (repos as any)[lang].length);
+        }
         this.renderer.send('repositories', repos);
     }
 
