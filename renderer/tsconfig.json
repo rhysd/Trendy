@@ -10,6 +10,7 @@
     "jsx": "react"
   },
   "files": [
+    "components/lang-trend.tsx",
     "components/repository.tsx",
     "components/root.tsx",
     "store.ts",

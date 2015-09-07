@@ -1,7 +1,7 @@
 import * as React from 'react';
 import RepoStore from '../store';
 import RepoReceiver from '../repo-receiver';
-import RepositoryList from './repository-list';
+import LangTrend from './lang-trend';
 
 interface TabProps {
     tabname: string;
@@ -33,7 +33,6 @@ class Tab extends React.Component<TabProps, {}> {
 }
 
 interface RootState {
-    repos: Object;
     tab: string;
 }
 
@@ -45,7 +44,6 @@ export default class Root extends React.Component<{}, RootState> {
         super(props);
 
         this.state = {
-            repos: RepoStore.getCurrentRepos(),
             tab: 'current',
         };
         this.repo_receiver = new RepoReceiver();
@@ -54,7 +52,6 @@ export default class Root extends React.Component<{}, RootState> {
     componentDidMount() {
         this.repo_listener = () =>
             this.setState({
-                repos: RepoStore.getCurrentRepos(),
                 tab: this.state.tab
             });
         RepoStore.on('updated', this.repo_listener);
@@ -66,12 +63,23 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    prepareRepositoryLists() {
+    prepareTrends() {
+        const repos = (() => {
+            switch(this.state.tab) {
+                case 'new':     return RepoStore.getUnreadRepos();
+                case 'current': return RepoStore.getCurrentRepos();
+                case 'all':     return RepoStore.getAllRepos();
+                default:        return {};
+            }
+        })();
+
         let idx = 0;
         let lists = [];
-        for (const lang in this.state.repos) {
-            lists.push(<RepositoryList repos={this.state.repos[lang]} lang={lang} key={idx++}/>);
+
+        for (const lang in repos) {
+            lists.push(<LangTrend repos={repos[lang]} lang={lang} key={idx++}/>);
         }
+
         return lists;
     }
 
@@ -83,7 +91,6 @@ export default class Root extends React.Component<{}, RootState> {
         }
 
         this.setState({
-            repos: RepoStore.getCurrentRepos(),
             tab: tabname
         });
     }
@@ -111,7 +118,7 @@ export default class Root extends React.Component<{}, RootState> {
                     </nav>
                 </div>
                 <div className="contents">
-                    {this.prepareRepositoryLists()}
+                    {this.prepareTrends()}
                 </div>
                 <div className="root-footer">
                     <span className="octicon octicon-sync"/>
