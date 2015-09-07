@@ -23,13 +23,10 @@
     "flux": "^2.1.1",
     "github-trend": "^0.0.2",
     "menubar": "^2.2.1",
-    "react": "^0.13.3",
-    "typescript": "^1.6.0-beta",
-    "typescriptify": "^0.1.0"
+    "react": "^0.13.3"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babelify": "^6.3.0",
+    "typescript": "^1.6.0-beta",
     "browserify": "^11.0.1",
     "electron-prebuilt": "^0.31.2"
   }
