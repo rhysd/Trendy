@@ -83,13 +83,17 @@ function _updateRepos(new_repos: Object) {
     // TODO: Save store to local storage
     fs.writeFile(
             DATA_FILE_PATH,
-            {encoding: 'utf8'},
             JSON.stringify({
-                unread_repos: this.unread_repos,
-                current_repos: this.current_repos,
-                all_repos: this.all_repos,
+                unread_repos: store.unread_repos,
+                current_repos: store.current_repos,
+                all_repos: store.all_repos,
             }),
-            (err: Error) => console.log('_updateRepos: error: ' + err.message)
+            {encoding: 'utf8'},
+            (err: Error) => {
+                if (err) {
+                    console.log('_updateRepos: error: ' + err.message);
+                }
+            }
         );
 }
 

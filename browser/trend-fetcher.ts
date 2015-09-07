@@ -1,5 +1,7 @@
 import * as GHT from 'github-trend'
 import * as fs from 'fs';
+import * as path from 'path';
+import * as app from 'app';
 
 const POLLING_INTERVAL = 3600000; // 1 hour
 
@@ -27,11 +29,17 @@ export default class TrendFetcher {
     }
 
     doScraping() {
-        this.client.fetchTrendings(['']).then(repos => {
-            this.sendToRenderer(repos);
-        }).catch((err: Error) => {
-            console.log('doScraping: error: ' + err.message);
-        });
+        fs.readFile(path.join(app.getPath('userData'), 'test.json'), {encoding: 'utf8'}, (err, data) => {
+            if (err) {
+                this.client.fetchTrendings(['']).then(repos => {
+                    this.sendToRenderer(repos);
+                }).catch((err: Error) => {
+                    console.log('doScraping: error: ' + err.message);
+                });
+            } else {
+                this.sendToRenderer(JSON.parse(data));
+            }
+        })
     }
 
     sendToRenderer(repos: Object): void {

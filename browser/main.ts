@@ -5,7 +5,7 @@ import * as ipc from 'ipc';
 const menuConfig = {
     dir: __dirname,
     index: 'file://' + path.join(__dirname, '..', '..', 'index.html'),
-    // TODO: icon: path.join(__dirname, '..', 'images', 'sc_' + config.icon_type + '_24x12.png'),
+    icon: path.join(__dirname, '..', '..', 'resource', 'image', 'graph.png'),
     // width: 1000,
     // height: 750,
     preloadWindow: true,
