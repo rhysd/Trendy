@@ -83,6 +83,15 @@ export default class Root extends React.Component<{}, RootState> {
         return lists;
     }
 
+    unreadCount() {
+        let count = 0;
+        const unread = RepoStore.getUnreadRepos();
+        for (const lang in unread) {
+            count += Object.keys(unread[lang]).length;
+        }
+        return count;
+    }
+
     onTabClicked(tabname: string, event: React.SyntheticEvent) {
         event.preventDefault();
 
@@ -112,7 +121,7 @@ export default class Root extends React.Component<{}, RootState> {
                         </select>
                     </div>
                     <nav className="tabnav-tabs">
-                        <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">0</span></Tab>
+                        <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
                         <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
                         <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
                     </nav>
