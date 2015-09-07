@@ -6,7 +6,7 @@ guard :shell do
     system 'rake build_browser_src'
   end
 
-  watch %r[^renderer/.+\.jsx?$] do |m|
+  watch %r[^renderer/.+\.tsx?$] do |m|
     puts "#{Time.now}: #{m[0]}"
     system 'rake build_renderer_src'
   end
