@@ -3,6 +3,7 @@ import * as fs from 'fs';
 
 export default class TrendFetcher {
     client: GHT.Client;
+    stopped: boolean;
 
     constructor(private renderer: GitHubElectron.WebContents, proxy?: string) {
         this.client = new GHT.Client({proxy: proxy});
