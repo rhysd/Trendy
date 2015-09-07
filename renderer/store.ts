@@ -1,8 +1,14 @@
 import {EventEmitter} from 'events';
 import Dispatcher from './dispatcher';
 import {ActionKind} from './constants';
+import {ActionType} from './actions';
 
 class RepoStore extends EventEmitter {
+    unread_repos: Object;
+    current_repos: Object;
+    all_repos: Object;
+    dispatch_token: string;
+
     constructor() {
         super();
         this.unread_repos = {};
@@ -35,7 +41,7 @@ export default store;
 // new_repos, unread_repos: Map<LangName, Map<RepoName, Repository>>
 // current_repos: Map<LangName, Repository[]>
 
-function _updateRepos(new_repos) {
+function _updateRepos(new_repos: Object) {
     store.current_repos = new_repos;
 
     for (const lang in new_repos) {
@@ -62,7 +68,7 @@ function _updateRepos(new_repos) {
     store.emit('updated');
 }
 
-store.dispatch_token = Dispatcher.register(action => {
+store.dispatch_token = Dispatcher.register((action: ActionType) => {
     switch(action.type) {
     case ActionKind.UpdateRepos: {
         _updateRepos(action.repos);
@@ -72,4 +78,3 @@ store.dispatch_token = Dispatcher.register(action => {
         break;
     }
 });
-

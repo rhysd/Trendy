@@ -1,10 +1,17 @@
-import React from 'react';
+import * as React from 'react';
 import RepoStore from '../store';
 import RepoReceiver from '../repo-receiver';
-import RepositoryList from './repository-list.jsx';
+import RepositoryList from './repository-list';
 
-class Tab extends React.Component {
-    constructor(props) {
+interface TabProps {
+    tabname: string;
+    current: string;
+    children?: React.ReactElement<any>[];
+    onClick: (event: React.SyntheticEvent) => void;
+}
+
+class Tab extends React.Component<TabProps, {}> {
+    constructor(props: TabProps) {
         super(props);
     }
 
@@ -25,9 +32,18 @@ class Tab extends React.Component {
     }
 }
 
-export default class Root extends React.Component {
-    constructor(props) {
+interface RootState {
+    repos: Object;
+    tab: string;
+}
+
+export default class Root extends React.Component<{}, RootState> {
+    repo_receiver: RepoReceiver;
+    repo_listener: () => void;
+
+    constructor(props: {}) {
         super(props);
+
         this.state = {
             repos: RepoStore.getCurrentRepos(),
             tab: 'current',
@@ -59,7 +75,7 @@ export default class Root extends React.Component {
         return lists;
     }
 
-    onTabClicked(tabname, event) {
+    onTabClicked(tabname: string, event: React.SyntheticEvent) {
         event.preventDefault();
 
         if (this.state.tab === tabname) {

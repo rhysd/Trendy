@@ -1,7 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 
-export default class Repository extends React.Component {
-    constructor(props) {
+interface Props {
+    repo: GitHubAPI.Repo;
+    key?: number;
+}
+
+export default class Repository extends React.Component<Props, {}> {
+    constructor(props: Props) {
         super(props);
     }
 

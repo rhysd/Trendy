@@ -1,7 +1,6 @@
 import * as Action from './actions';
 
-const ipc = global.require('ipc');
-const remote = global.require('remote');
+const ipc: any = global.require('ipc');
 
 export default class RepoReceiver {
     constructor() {

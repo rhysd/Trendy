@@ -23,7 +23,9 @@
     "flux": "^2.1.1",
     "github-trend": "^0.0.2",
     "menubar": "^2.2.1",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "typescript": "^1.6.0-beta",
+    "typescriptify": "^0.1.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",

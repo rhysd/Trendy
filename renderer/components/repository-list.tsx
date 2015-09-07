@@ -1,8 +1,14 @@
-import React from 'react';
-import Repository from './repository.jsx';
+import * as React from 'react';
+import Repository from './repository';
 
-export default class RepositoryList extends React.Component {
-    constructor(props) {
+interface Props {
+    lang: string;
+    repos: GitHubAPI.Repo[];
+    key?: number;
+}
+
+export default class RepositoryList extends React.Component<Props, {}> {
+    constructor(props: Props) {
         super(props);
     }
 
