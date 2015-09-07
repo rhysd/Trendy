@@ -27,14 +27,12 @@ html, body {
   height: 1rem;
   background-color: #333333;
 }
-.root-footer .octicon {
-  color: white;
-  float: right;
-  cursor: pointer;
-}
 .contents {
   background-color: white;
   /* padding: 0.5rem; */
+}
+.root-footer .icon-button {
+  float: right;
 }
 
 .tabnav {

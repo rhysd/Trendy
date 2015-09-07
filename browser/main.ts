@@ -17,5 +17,5 @@ menu_window.on('after-create-window', () => {
     menu_window.tray.setToolTip('Show Menu Window');
     let fetcher = new TrendFetcher(menu_window.window.webContents);
     ipc.on('renderer-ready', () => fetcher.start());
-    ipc.on('force-update', () => fetcher.doScraping());
+    ipc.on('force-update-repos', () => fetcher.doScraping());
 });

@@ -11,6 +11,8 @@ class RepoStore extends EventEmitter {
 
     constructor() {
         super();
+
+        // TODO: Load from local storage
         this.unread_repos = {};
         this.current_repos = {};
         this.all_repos = {};
@@ -54,11 +56,10 @@ function _updateRepos(new_repos: Object) {
                 if (store.unread_repos[lang] === undefined) {
                     store.unread_repos[lang] = {};
                 }
-                console.log('Added to unread: ' + repo.full_name);
+                console.log('Added to UNREAD: ' + repo.full_name);
                 store.unread_repos[lang][repo.full_name] = repo;
             }
 
-            console.log('Added to all: ' + repo.full_name);
             store.all_repos[lang][repo.full_name] = repo;
         }
     }

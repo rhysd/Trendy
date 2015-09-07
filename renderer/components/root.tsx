@@ -2,6 +2,9 @@ import * as React from 'react';
 import RepoStore from '../store';
 import RepoReceiver from '../repo-receiver';
 import LangTrend from './lang-trend';
+import IconButton from './icon-button';
+
+const ipc: any = global.require('ipc');
 
 interface TabProps {
     tabname: string;
@@ -104,6 +107,11 @@ export default class Root extends React.Component<{}, RootState> {
         });
     }
 
+    forceUpdateRepos() {
+        console.log('force update');
+        ipc.send('force-update-repos');
+    }
+
     render() {
         return (
             <div className="root">
@@ -130,8 +138,8 @@ export default class Root extends React.Component<{}, RootState> {
                     {this.prepareTrends()}
                 </div>
                 <div className="root-footer">
-                    <span className="octicon octicon-sync"/>
-                    <span className="octicon octicon-gear"/>
+                    <IconButton icon="gear" color="white" onClick={() => console.log('not implemented :(')}/>
+                    <IconButton icon="sync" color="white" onClick={this.forceUpdateRepos}/>
                 </div>
             </div>
         );
