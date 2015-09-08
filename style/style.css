@@ -38,6 +38,9 @@ html, body {
 .tabnav {
   margin-bottom: 0px;
 }
+.tabnav-tab {
+  color: #ddd;
+}
 .tabnav-extra {
   padding-top: 0px;
 }
