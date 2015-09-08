@@ -113,6 +113,10 @@ export default class Root extends React.Component<{}, RootState> {
     }
 
     render() {
+        if (this.state.tab === 'new') {
+            ipc.send('tray-icon-normal');
+        }
+
         return (
             <div className="root">
                 <div className="root-header"/>
