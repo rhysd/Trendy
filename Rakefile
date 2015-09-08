@@ -58,3 +58,16 @@ end
 
 task :all => %i(build run)
 
+task :asar do
+  mkdir 'archive'
+  begin
+    %w(bower.json package.json index.html style build resource).each{|p| cp_r p, 'archive' }
+    cd 'archive' do
+      sh 'npm install --production'
+      sh 'bower install --production'
+    end
+    sh "#{BIN}/asar pack archive app.asar"
+  ensure
+    rm_rf 'archive'
+  end
+end
