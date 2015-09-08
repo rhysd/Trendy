@@ -119,24 +119,25 @@ export default class Root extends React.Component<{}, RootState> {
 
         return (
             <div className="root">
-                <div className="root-header"/>
-                <div className="tabnav">
-                    <div className="tabnav-extra right">
-                        <select className="select select-sm">
-                            <option>Language</option>
-                            <option>all</option>
-                            <option>vim</option>
-                            <option>go</option>
-                            <option>rust</option>
-                            <option>javascript</option>
-                            <option>c++</option>
-                        </select>
+                <div className="root-header">
+                    <div className="tabnav">
+                        <div className="tabnav-extra right">
+                            <select className="select select-sm">
+                                <option>Language</option>
+                                <option>all</option>
+                                <option>vim</option>
+                                <option>go</option>
+                                <option>rust</option>
+                                <option>javascript</option>
+                                <option>c++</option>
+                            </select>
+                        </div>
+                        <nav className="tabnav-tabs">
+                            <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
+                            <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
+                            <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
+                        </nav>
                     </div>
-                    <nav className="tabnav-tabs">
-                        <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
-                        <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
-                        <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
-                    </nav>
                 </div>
                 <div className="contents">
                     {this.prepareTrends()}
