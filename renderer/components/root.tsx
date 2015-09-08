@@ -54,10 +54,7 @@ export default class Root extends React.Component<{}, RootState> {
     }
 
     componentDidMount() {
-        this.repo_listener = () =>
-            this.setState({
-                tab: this.state.tab
-            });
+        this.repo_listener = () => this.setState({tab: this.state.tab});
         RepoStore.on('updated', this.repo_listener);
     }
 
@@ -116,7 +113,7 @@ export default class Root extends React.Component<{}, RootState> {
     render() {
         if (this.state.tab === 'new') {
             ipc.send('tray-icon-normal');
-            Action.checkUnread();
+            setImmediate(Action.checkUnread);
         }
 
         return (

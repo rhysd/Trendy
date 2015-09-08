@@ -122,6 +122,10 @@ store.dispatch_token = Dispatcher.register((action: ActionType) => {
     }
 
     case ActionKind.ClearUnread: {
+        if (store.unread_checked) {
+            store.unread_repos = {};
+            store.emit('updated');
+        }
         store.unread_checked = false;
         break;
     }
