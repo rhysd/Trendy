@@ -27,7 +27,7 @@ end
 
 file 'node_modules' do
   ensure_cmd 'npm'
-  sh 'npm install --dev'
+  sh 'npm install'
 end
 
 task :dep => %i(node_modules)

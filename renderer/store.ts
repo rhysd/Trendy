@@ -6,6 +6,7 @@ import {ActionType} from './actions';
 const USER_DIR = global.require('remote').require('app').getPath('userData');
 const DATA_FILE_PATH = global.require('path').join(USER_DIR, 'repos.json');
 const fs = global.require('fs');
+const ipc = global.require('ipc');
 
 class RepoStore extends EventEmitter {
     unread_repos: Object;
@@ -16,20 +17,18 @@ class RepoStore extends EventEmitter {
     constructor() {
         super();
 
-        // TODO: Load from local storage
-        fs.readFile(DATA_FILE_PATH, {encoding: 'utf8'}, (err: Error, data: string) => {
-            if (err) {
-                this.unread_repos = {};
-                this.current_repos = {};
-                this.all_repos = {};
-                return;
-            }
-
+        try {
+            const data = fs.readFileSync(DATA_FILE_PATH, {encoding: 'utf8'});
             const loaded = JSON.parse(data);
             this.unread_repos = loaded.unread_repos;
             this.current_repos = loaded.current_repos;
             this.all_repos = loaded.all_repos;
-        });
+        }
+        catch(e) {
+            this.unread_repos = {};
+            this.current_repos = {};
+            this.all_repos = {};
+        }
     }
 
     getAllRepos() {
