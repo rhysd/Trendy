@@ -36,6 +36,47 @@ class Tab extends React.Component<TabProps, {}> {
     }
 }
 
+interface TrendsProps {
+    repos: GitHubAPI.Repo[] | Object;
+}
+
+class Trends extends React.Component<TrendsProps, {}> {
+   constructor(props: TrendsProps) {
+       super(props);
+   }
+
+   getChildren() {
+        let idx = 0;
+        let lists = [];
+
+        for (const lang in this.props.repos) {
+            lists.push(<LangTrend repos={this.props.repos[lang]} lang={lang} key={idx++}/>);
+        }
+
+        return lists;
+   }
+
+   render() {
+       const children = this.getChildren();
+
+       if (children.length === 0) {
+            return (
+                <div className="trends blankslate spacious">
+                    <span className="mega-octicon octicon-graph"/>
+                    <h3>Nothing to Show</h3>
+                    <p>New repositories will be shown here</p>
+                </div>
+            );
+       }
+
+       return (
+            <div className="trends">
+                {children}
+            </div>
+        );
+   }
+}
+
 interface RootState {
     tab: string;
 }
@@ -64,34 +105,13 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    prepareTrends(): any {
-        const repos = (() => {
-            switch(this.state.tab) {
-                case 'new':     return RepoStore.getUnreadRepos();
-                case 'current': return RepoStore.getCurrentRepos();
-                case 'all':     return RepoStore.getAllRepos();
-                default:        return {};
-            }
-        })();
-
-        let idx = 0;
-        let lists = [];
-
-        for (const lang in repos) {
-            lists.push(<LangTrend repos={repos[lang]} lang={lang} key={idx++}/>);
+    getReposToShow() {
+        switch(this.state.tab) {
+            case 'new':     return RepoStore.getUnreadRepos();
+            case 'current': return RepoStore.getCurrentRepos();
+            case 'all':     return RepoStore.getAllRepos();
+            default:        return {};
         }
-
-        if (lists.length === 0) {
-            return (
-                <div className="blankslate spacious">
-                    <span className="mega-octicon octicon-graph"/>
-                    <h3>Nothing to Show</h3>
-                    <p>New repositories will be shown here</p>
-                </div>
-            );
-        }
-
-        return lists;
     }
 
     unreadCount() {
@@ -105,14 +125,9 @@ export default class Root extends React.Component<{}, RootState> {
 
     onTabClicked(tabname: string, event: React.SyntheticEvent) {
         event.preventDefault();
-
-        if (this.state.tab === tabname) {
-            return;
+        if (this.state.tab !== tabname) {
+            this.setState({tab: tabname});
         }
-
-        this.setState({
-            tab: tabname
-        });
     }
 
     forceUpdateRepos() {
@@ -146,7 +161,7 @@ export default class Root extends React.Component<{}, RootState> {
                     </div>
                 </div>
                 <div className="contents">
-                    {this.prepareTrends()}
+                    <Trends repos={this.getReposToShow()}/>
                 </div>
                 <div className="root-footer">
                     <IconButton icon="gear" color="white" onClick={() => console.log('not implemented :(')}/>
