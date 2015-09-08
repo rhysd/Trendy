@@ -29,7 +29,6 @@ export default class Repository extends React.Component<Props, {}> {
                     </div>
                     <div className="metadata">
                         <span className="counter"><span className="octicon octicon-star"/>{this.props.repo.stargazers_count}</span>
-                        <span className="counter"><span className="octicon octicon-eye"/>{this.props.repo.watchers_count}</span>
                     </div>
                 </div>
                 <div className="primary">
