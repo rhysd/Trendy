@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as app from 'app';
 
 const POLLING_INTERVAL = 3600000; // 1 hour
+const TEST_FILE_PATH = path.join(app.getPath('userData'), 'test.json');
 
 export default class TrendFetcher {
     client: GHT.Client;
@@ -29,7 +30,7 @@ export default class TrendFetcher {
     }
 
     doScraping() {
-        fs.readFile(path.join(app.getPath('userData'), 'test.json'), {encoding: 'utf8'}, (err, data) => {
+        fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
             if (err) {
                 this.client.fetchTrendings(['']).then(repos => {
                     this.sendToRenderer(repos);

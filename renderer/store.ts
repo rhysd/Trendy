@@ -79,6 +79,12 @@ function _updateRepos(new_repos: Object) {
 
     store.emit('updated');
 
+    if (store.unread_repos === {}) {
+        ipc.send('change-tray-icon', 'normal');
+    } else {
+        ipc.send('change-tray-icon', 'notified');
+    }
+
     // TODO: Save store to local storage
     fs.writeFile(
             DATA_FILE_PATH,
