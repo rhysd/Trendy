@@ -2,15 +2,13 @@ import * as path from 'path';
 import TrendFetcher from './trend-fetcher';
 import * as ipc from 'ipc';
 
-const normal_icon = path.join(__dirname, '..', '..', 'resource', 'image', 'graph.png');
-const notified_icon =path.join(__dirname, '..', '..', 'resource', 'image', 'graph_notify.png');
+const normal_icon = path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph.png');
+const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph_notify.png');
 
 const menuConfig = {
     dir: __dirname,
     index: 'file://' + path.join(__dirname, '..', '..', 'index.html'),
-    icon: path.join(__dirname, '..', '..', 'resource', 'image', 'graph.png'),
-    // width: 1000,
-    // height: 750,
+    icon: normal_icon,
     preloadWindow: true,
 };
 
