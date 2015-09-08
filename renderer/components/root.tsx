@@ -64,7 +64,7 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    prepareTrends() {
+    prepareTrends(): any {
         const repos = (() => {
             switch(this.state.tab) {
                 case 'new':     return RepoStore.getUnreadRepos();
@@ -79,6 +79,16 @@ export default class Root extends React.Component<{}, RootState> {
 
         for (const lang in repos) {
             lists.push(<LangTrend repos={repos[lang]} lang={lang} key={idx++}/>);
+        }
+
+        if (lists.length === 0) {
+            return (
+                <div className="blankslate spacious">
+                    <span className="mega-octicon octicon-graph"/>
+                    <h3>Nothing to Show</h3>
+                    <p>New repositories will be shown here</p>
+                </div>
+            );
         }
 
         return lists;
@@ -123,12 +133,9 @@ export default class Root extends React.Component<{}, RootState> {
                         <div className="tabnav-extra right">
                             <select className="select select-sm">
                                 <option>Language</option>
-                                <option>all</option>
-                                <option>vim</option>
-                                <option>go</option>
-                                <option>rust</option>
-                                <option>javascript</option>
-                                <option>c++</option>
+                                <option>Not</option>
+                                <option>Implemented</option>
+                                <option>Yet</option>
                             </select>
                         </div>
                         <nav className="tabnav-tabs">
