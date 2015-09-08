@@ -1,6 +1,7 @@
 import * as React from 'react';
 import RepoStore from '../store';
 import RepoReceiver from '../repo-receiver';
+import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
 
@@ -115,6 +116,7 @@ export default class Root extends React.Component<{}, RootState> {
     render() {
         if (this.state.tab === 'new') {
             ipc.send('tray-icon-normal');
+            Action.checkUnread();
         }
 
         return (

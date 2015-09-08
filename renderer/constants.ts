@@ -1,3 +1,5 @@
 export enum ActionKind {
-    UpdateRepos
+    UpdateRepos,
+    CheckUnread,
+    ClearUnread,
 };

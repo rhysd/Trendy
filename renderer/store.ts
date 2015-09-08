@@ -13,9 +13,12 @@ class RepoStore extends EventEmitter {
     current_repos: Object;
     all_repos: Object;
     dispatch_token: string;
+    unread_checked: boolean;
 
     constructor() {
         super();
+
+        this.unread_checked = false;
 
         try {
             const data = fs.readFileSync(DATA_FILE_PATH, {encoding: 'utf8'});
@@ -41,6 +44,10 @@ class RepoStore extends EventEmitter {
 
     getUnreadRepos() {
         return this.unread_repos;
+    }
+
+    getUnreadChecked() {
+        return this.unread_checked;
     }
 }
 
@@ -106,6 +113,17 @@ store.dispatch_token = Dispatcher.register((action: ActionType) => {
     switch(action.type) {
     case ActionKind.UpdateRepos: {
         _updateRepos(action.repos);
+        break;
+    }
+
+    case ActionKind.CheckUnread: {
+        store.unread_checked = true;
+        break;
+    }
+
+    case ActionKind.ClearUnread: {
+        store.unread_checked = false;
+        break;
     }
 
     default:

@@ -12,3 +12,15 @@ export function updateRepos(repos: Object) {
         repos: repos,
     });
 }
+
+export function checkUnread() {
+    Dispatcher.dispatch({
+        type: ActionKind.CheckUnread
+    });
+}
+
+export function clearUnread() {
+    Dispatcher.dispatch({
+        type: ActionKind.ClearUnread
+    });
+}
