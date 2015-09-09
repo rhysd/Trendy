@@ -1,6 +1,8 @@
 import * as path from 'path';
-import TrendFetcher from './trend-fetcher';
 import * as ipc from 'ipc';
+import * as app from 'app';
+import TrendFetcher from './trend-fetcher';
+import Config from './config';
 
 const normal_icon = path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph.png');
 const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph_notify.png');
@@ -11,6 +13,9 @@ const menuConfig = {
     icon: normal_icon,
     preloadWindow: true,
 };
+const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
+
+global.config = new Config(path.join(app.getPath('userData'), 'config.json'));
 
 let menu_window: MenuBar = require('menubar')(menuConfig);
 
