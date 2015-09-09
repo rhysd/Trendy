@@ -86,7 +86,7 @@ function _updateRepos(new_repos: Object) {
 
     store.emit('updated');
 
-    if (store.unread_repos === {}) {
+    if (Object.keys(store.unread_repos).length === 0) {
         ipc.send('tray-icon-normal');
     } else {
         ipc.send('tray-icon-notified');
