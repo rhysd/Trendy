@@ -14,21 +14,31 @@ class RepoStore extends EventEmitter {
     all_repos: Object;
     dispatch_token: string;
 
+    loadStorage(name: string) {
+        const saved = window.localStorage.getItem(name);
+        if (saved) {
+            return JSON.parse(saved);
+        } else {
+            return {};
+        }
+    }
+
+    saveToStorage(name) {
+        window.localStorage.setItem(name, JSON.stringify(this[name]));
+    }
+
+    saveAllToStorage() {
+        this.saveToStorage('unread_repos');
+        this.saveToStorage('current_repos');
+        this.saveToStorage('all_repos');
+    }
+
     constructor() {
         super();
 
-        try {
-            const data = fs.readFileSync(DATA_FILE_PATH, {encoding: 'utf8'});
-            const loaded = JSON.parse(data);
-            this.unread_repos = loaded.unread_repos;
-            this.current_repos = loaded.current_repos;
-            this.all_repos = loaded.all_repos;
-        }
-        catch(e) {
-            this.unread_repos = {};
-            this.current_repos = {};
-            this.all_repos = {};
-        }
+        this.unread_repos = this.loadStorage('unread_repos');
+        this.current_repos = this.loadStorage('current_repos');
+        this.all_repos = this.loadStorage('all_repos');
     }
 
     getAllRepos() {
@@ -85,21 +95,7 @@ function _updateRepos(new_repos: Object) {
         ipc.send('tray-icon-notified');
     }
 
-    // TODO: Save store to local storage
-    fs.writeFile(
-            DATA_FILE_PATH,
-            JSON.stringify({
-                unread_repos: store.unread_repos,
-                current_repos: store.current_repos,
-                all_repos: store.all_repos,
-            }),
-            {encoding: 'utf8'},
-            (err: Error) => {
-                if (err) {
-                    console.log('_updateRepos: error: ' + err.message);
-                }
-            }
-        );
+    setImmediate(() => store.saveAllToStorage());
 }
 
 function _unreadRepo(lang: string, full_name: string) {
@@ -124,6 +120,7 @@ function _unreadRepo(lang: string, full_name: string) {
         delete store.unread_repos[lang];
     }
     store.emit('updated');
+    setImmediate(() => store.saveToStorage('unread_repos'));
 }
 
 store.dispatch_token = Dispatcher.register((action: ActionType) => {
