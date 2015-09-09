@@ -13,12 +13,9 @@ class RepoStore extends EventEmitter {
     current_repos: Object;
     all_repos: Object;
     dispatch_token: string;
-    unread_checked: boolean;
 
     constructor() {
         super();
-
-        this.unread_checked = false;
 
         try {
             const data = fs.readFileSync(DATA_FILE_PATH, {encoding: 'utf8'});
@@ -44,10 +41,6 @@ class RepoStore extends EventEmitter {
 
     getUnreadRepos() {
         return this.unread_repos;
-    }
-
-    getUnreadChecked() {
-        return this.unread_checked;
     }
 }
 
@@ -109,26 +102,39 @@ function _updateRepos(new_repos: Object) {
         );
 }
 
+function _unreadRepo(lang: string, full_name: string) {
+    if (store.unread_repos[lang] === undefined) {
+        console.log('Action: CheckUnread: Invalid language: ' + lang);
+        return;
+    }
+
+    if (full_name === '*') {
+        delete store.unread_repos[lang];
+        store.emit('updated');
+        return;
+    }
+
+    if (store.unread_repos[lang][full_name] === undefined) {
+        console.log('Action: CheckUnread: Invalid repo: ' + full_name);
+        return;
+    }
+
+    delete store.unread_repos[lang][full_name];
+    if (Object.keys(store.unread_repos[lang]).length === 0) {
+        delete store.unread_repos[lang];
+    }
+    store.emit('updated');
+}
+
 store.dispatch_token = Dispatcher.register((action: ActionType) => {
     switch(action.type) {
-    case ActionKind.UpdateRepos: {
+    case ActionKind.UpdateRepos:
         _updateRepos(action.repos);
         break;
-    }
 
-    case ActionKind.CheckUnread: {
-        store.unread_checked = true;
+    case ActionKind.CheckUnread:
+        _unreadRepo(action.lang, action.full_name);
         break;
-    }
-
-    case ActionKind.ClearUnread: {
-        if (store.unread_checked) {
-            store.unread_repos = {};
-            store.emit('updated');
-        }
-        store.unread_checked = false;
-        break;
-    }
 
     default:
         break;

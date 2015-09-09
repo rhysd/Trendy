@@ -65,9 +65,17 @@ html, body {
 .repo .primary {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  margin-left: 1.2em;
   margin-right: 1.0em;
+  display: flex;
+  align-items: center;
+}
+.repo .primary .description {
   font-size: 1.1em;
+  flex: auto;
+}
+.repo .primary .icon-button {
+  flex: none;
+  margin-right: 0.2em;
 }
 .repo .secondary {
   display: flex;

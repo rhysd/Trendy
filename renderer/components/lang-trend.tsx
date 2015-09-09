@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Repository from './repository';
+import * as Action from '../actions';
 
 interface Props {
     lang: string;
     repos: GitHubAPI.Repo[] | Object;
     key?: number;
+    show_check: boolean;
 }
 
 export default class LangTrend extends React.Component<Props, {}> {
@@ -20,9 +22,23 @@ export default class LangTrend extends React.Component<Props, {}> {
         // 'for of' in TypeScript does not support iterating Object
         // when target is ES5...
         for (const key in this.props.repos) {
-            children.push(<Repository key={idx++} repo={this.props.repos[key]}/>);
+            children.push(
+                <Repository key={idx++} repo={this.props.repos[key]} onCheckClicked={this.getCheckCallback(this.props.repos[key])}/>
+            );
         }
         return children;
+    }
+
+    getCheckCallback(repo: GitHubAPI.Repo) {
+        if (this.props.show_check) {
+            return this.checkRepo.bind(this, repo.full_name);
+        } else {
+            return null;
+        }
+    }
+
+    checkRepo(full_name: string) {
+        Action.checkUnread(this.props.lang, full_name);
     }
 
     numRepos() {

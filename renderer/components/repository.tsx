@@ -1,23 +1,45 @@
 import * as React from 'react';
 import ExternalLink from './external-link';
+import IconButton from './icon-button';
 
 interface Props {
     repo: GitHubAPI.Repo;
+    onCheckClicked?: () => void;
     key?: number;
 }
 
-export default class Repository extends React.Component<Props, {}> {
+interface State {
+    check_visible: boolean;
+}
+
+export default class Repository extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
+        this.state = {
+            check_visible: false,
+        };
     }
 
     titleIcon() {
         return this.props.repo.fork ? 'octicon octicon-repo-forked' : 'octicon octicon-repo';
     }
 
+    showCheck() {
+        this.setState({
+            check_visible: true,
+        });
+    }
+
+    hideCheck() {
+        this.setState({
+            check_visible: false,
+        });
+    }
+
     render() {
         return (
-            <div className="repo">
+            <div className="repo" ref="root" onMouseOver={this.showCheck.bind(this)} onMouseOut={this.hideCheck.bind(this)}>
                 <div className="secondary">
                     <div className="title">
                         <span className={this.titleIcon()}/>
@@ -32,7 +54,10 @@ export default class Repository extends React.Component<Props, {}> {
                     </div>
                 </div>
                 <div className="primary">
-                    {this.props.repo.description}
+                    <IconButton icon="check" color="#4078c0" mega={true} visible={this.state.check_visible} onClick={this.props.onCheckClicked} />
+                    <div className="description">
+                        {this.props.repo.description}
+                    </div>
                 </div>
             </div>
         );

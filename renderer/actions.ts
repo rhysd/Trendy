@@ -3,7 +3,9 @@ import Dispatcher from './dispatcher';
 
 export interface ActionType {
     type: ActionKind;
-    repos?: Object
+    repos?: Object;
+    lang?: string;
+    full_name?: string;
 }
 
 export function updateRepos(repos: Object) {
@@ -13,14 +15,10 @@ export function updateRepos(repos: Object) {
     });
 }
 
-export function checkUnread() {
+export function checkUnread(lang: string, full_name: string) {
     Dispatcher.dispatch({
-        type: ActionKind.CheckUnread
-    });
-}
-
-export function clearUnread() {
-    Dispatcher.dispatch({
-        type: ActionKind.ClearUnread
+        type: ActionKind.CheckUnread,
+        lang: lang,
+        full_name: full_name,
     });
 }

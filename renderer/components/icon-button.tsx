@@ -4,6 +4,8 @@ interface Props {
     icon: string;
     color: string;
     onClick: (event: React.SyntheticEvent) => void;
+    visible?: boolean;
+    mega?: boolean;
 }
 
 interface InnerProps {
@@ -17,18 +19,24 @@ export default class IconButton extends React.Component<Props, {}> {
         super(props);
     }
 
+    getClassName() {
+        return `${this.props.mega ? "mega-octicon" : "octicon"} octicon-${this.props.icon} icon-button`;
+    }
+
     render() {
         let props: InnerProps = {
-            className: "octicon octicon-" + this.props.icon + " icon-button",
+            className: this.getClassName(),
             onClick: this.props.onClick,
         };
 
         props.style = {
-            cursor: 'pointer',
-            color: this.props.color,
+            cursor: this.props.onClick ? 'pointer' : '',
+            color: !this.props.onClick || (this.props.visible === false) ? 'transparent' : this.props.color,
         };
 
         return <span {...props} />;
     }
 }
 
+// Note:
+// react.d.ts doesn't support defaultProps

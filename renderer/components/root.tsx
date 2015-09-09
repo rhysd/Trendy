@@ -38,6 +38,7 @@ class Tab extends React.Component<TabProps, {}> {
 
 interface TrendsProps {
     repos: GitHubAPI.Repo[] | Object;
+    kind: string;
 }
 
 class Trends extends React.Component<TrendsProps, {}> {
@@ -50,7 +51,7 @@ class Trends extends React.Component<TrendsProps, {}> {
         let lists = [];
 
         for (const lang in this.props.repos) {
-            lists.push(<LangTrend repos={this.props.repos[lang]} lang={lang} key={idx++}/>);
+            lists.push(<LangTrend repos={this.props.repos[lang]} lang={lang} key={idx++} show_check={this.props.kind === 'new'}/>);
         }
 
         return lists;
@@ -137,8 +138,8 @@ export default class Root extends React.Component<{}, RootState> {
 
     render() {
         if (this.state.tab === 'new') {
+            // Clear notified icon
             ipc.send('tray-icon-normal');
-            setImmediate(Action.checkUnread);
         }
 
         return (
@@ -161,7 +162,7 @@ export default class Root extends React.Component<{}, RootState> {
                     </div>
                 </div>
                 <div className="contents">
-                    <Trends repos={this.getReposToShow()}/>
+                    <Trends repos={this.getReposToShow()} kind={this.state.tab}/>
                 </div>
                 <div className="root-footer">
                     <IconButton icon="gear" color="white" onClick={() => console.log('not implemented :(')}/>
