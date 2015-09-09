@@ -126,6 +126,7 @@ export default class Root extends React.Component<{}, RootState> {
 
     onTabClicked(tabname: string, event: React.SyntheticEvent) {
         event.preventDefault();
+        window.scrollTo(0, 0);
         if (this.state.tab !== tabname) {
             this.setState({tab: tabname});
         }
