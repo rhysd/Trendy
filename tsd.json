@@ -6,22 +6,22 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "d9fea91e842c2cf5bd0f7d861ac378e571d2ad7c"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "github-electron/github-electron.d.ts": {
-      "commit": "d9fea91e842c2cf5bd0f7d861ac378e571d2ad7c"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "github-electron/github-electron-main.d.ts": {
-      "commit": "d9fea91e842c2cf5bd0f7d861ac378e571d2ad7c"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "es6-promise/es6-promise.d.ts": {
-      "commit": "d9fea91e842c2cf5bd0f7d861ac378e571d2ad7c"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "react/react.d.ts": {
-      "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     },
     "flux/flux.d.ts": {
-      "commit": "bb051830df88f5a55dcf06b7fe85bf6b62cc97f2"
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     }
   }
 }
