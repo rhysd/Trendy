@@ -17,6 +17,7 @@ Keep You in the Trend
 - Use GitHub authentication to relax API rate limit.
 - Isolated application mode
 - Embedded browser
+- Emojis
 
 ### Installation
 

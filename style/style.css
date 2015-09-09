@@ -46,8 +46,11 @@ html, body {
 .tabnav-extra {
   padding-top: 0px;
 }
+.select {
+  outline: none;
+}
 
-.blankslate {
+.contents .blankslate {
   height: 100%;
 }
 
@@ -60,11 +63,10 @@ html, body {
   display: flex;
   flex-direction: column;
   border-top: solid 1px #ddd;
-  padding: 0.5rem;
+  padding: 0.5rem 0.5rem 0rem; /*use footer as padding*/
 }
 .repo .primary {
   margin-top: 0.5em;
-  margin-bottom: 0.5em;
   margin-right: 1.0em;
   display: flex;
   align-items: center;
@@ -94,6 +96,11 @@ html, body {
 .repo .secondary .metadata > * {
   margin-right: 0.5em;
   min-width: 5em;
+}
+.repo .footer .lang-name {
+  font-size: 0.875em; /*also as bottom padding of .repo container*/
+  color: #999999;
+  float: right;
 }
 
 .repos {
