@@ -8,19 +8,19 @@ var join = require('path').join;
 var existsSync = require('fs').existsSync;
 
 var argv = [join(__dirname, '..')];
-var detach_idx = process.argv.indexOf('--detach');
-var detached = detach_idx !== -1;
-if (detached) {
-    process.argv.splice(detach_idx, 1);
+var no_detach_idx = process.argv.indexOf('--no-detach');
+var attached = no_detach_idx !== -1;
+if (attached) {
+    process.argv.splice(no_detach_idx, 1);
 }
 
-if (detached) {
+if (attached) {
+    child_process.spawn(electron, argv, {
+        stdio: 'inherit'
+    });
+} else {
     child_process.spawn(electron, argv, {
         stdio: 'ignore',
         detached: true
     }).unref();
-} else {
-    child_process.spawn(electron, argv, {
-        stdio: 'inherit'
-    });
 }
