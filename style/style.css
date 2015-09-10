@@ -168,11 +168,11 @@ html, body {
   display: flex;
   flex-direction: row;
   margin: 0.25em 0.5em;
+  align-items: center;
 }
 .embedded-browser .browser-title-bar .mega-octicon {
   margin: 0em 0.25em;
   cursor: pointer;
-  align-items: center;
 }
 .embedded-browser .page-back {
   flex: none;
