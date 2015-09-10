@@ -5,7 +5,9 @@ import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
 
-const ipc: any = global.require('ipc');
+const ipc = global.require('ipc');
+const remote = global.require('remote');
+const shell = global.require('shell');
 
 interface TabProps {
     tabname: string;
@@ -137,6 +139,10 @@ export default class Root extends React.Component<{}, RootState> {
         ipc.send('force-update-repos');
     }
 
+    openConfigFile() {
+        shell.openItem(remote.getGlobal('config').path);
+    }
+
     render() {
         if (this.state.tab === 'new') {
             // Clear notified icon
@@ -166,7 +172,7 @@ export default class Root extends React.Component<{}, RootState> {
                     <Trends repos={this.getReposToShow()} kind={this.state.tab}/>
                 </div>
                 <div className="root-footer">
-                    <IconButton icon="gear" color="white" onClick={() => console.log('not implemented :(')}/>
+                    <IconButton icon="gear" color="white" onClick={this.openConfigFile}/>
                     <IconButton icon="sync" color="white" onClick={this.forceUpdateRepos}/>
                 </div>
             </div>
