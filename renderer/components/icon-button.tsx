@@ -15,6 +15,8 @@ interface InnerProps {
 }
 
 export default class IconButton extends React.Component<Props, {}> {
+    public static defaultProps = {visible: true, mega: false};
+
     constructor(props: Props) {
         super(props);
     }
@@ -31,7 +33,7 @@ export default class IconButton extends React.Component<Props, {}> {
 
         props.style = {
             cursor: this.props.onClick ? 'pointer' : '',
-            color: !this.props.onClick || (this.props.visible === false) ? 'transparent' : this.props.color,
+            color: this.props.visible && this.props.onClick ? this.props.color : 'transparent',
         };
 
         return <span {...props} />;

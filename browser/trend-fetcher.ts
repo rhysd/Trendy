@@ -43,10 +43,10 @@ export default class TrendFetcher {
         })
     }
 
-    sendToRenderer(repos: Object): void {
+    sendToRenderer(repos: {[key: string]: any}): void {
         console.log('sent from browser process:');
         for (const lang in repos) {
-            console.log('  ' + lang + ': ' + (repos as any)[lang].length);
+            console.log('  ' + lang + ': ' + repos[lang].length);
         }
         this.renderer.send('repositories', repos);
     }

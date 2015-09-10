@@ -5,9 +5,9 @@ import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
 
-const ipc = global.require('ipc');
-const remote = global.require('remote');
-const shell = global.require('shell');
+const ipc: ElectronRenderer.InProcess = global.require('ipc');
+const remote: ElectronRenderer.Remote = global.require('remote');
+const shell: ElectronRenderer.Shell = global.require('shell');
 
 interface TabProps {
     tabname: string;

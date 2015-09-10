@@ -61,7 +61,7 @@ export default class Repository extends React.Component<Props, State> {
                 </div>
                 <div className="footer">
                     <div className="lang-name">
-                        {this.props.repo.language ? this.props.repo.language : " "}
+                        {this.props.repo.language ? this.props.repo.language : ""}
                     </div>
                 </div>
             </div>

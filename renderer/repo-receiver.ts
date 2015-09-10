@@ -1,6 +1,6 @@
 import * as Action from './actions';
 
-const ipc: any = global.require('ipc');
+const ipc: ElectronRenderer.InProcess = global.require('ipc');
 
 export default class RepoReceiver {
     constructor() {

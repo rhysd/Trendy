@@ -6,7 +6,7 @@ import {ActionType} from './actions';
 const USER_DIR = global.require('remote').require('app').getPath('userData');
 const DATA_FILE_PATH = global.require('path').join(USER_DIR, 'repos.json');
 const fs = global.require('fs');
-const ipc = global.require('ipc');
+const ipc: ElectronRenderer.InProcess = global.require('ipc');
 
 class RepoStore extends EventEmitter {
     unread_repos: Object;

@@ -10,6 +10,8 @@ interface Props {
 }
 
 export default class LangTrend extends React.Component<Props, {}> {
+    public static defaultProps = {show_check: false};
+
     constructor(props: Props) {
         super(props);
     }
