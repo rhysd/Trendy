@@ -37,36 +37,42 @@ function startMenubarApp() {
 }
 
 function startIsolatedApp() {
-    let win = new BrowserWindow({
-        width: app_config.width,
-        height: app_config.height,
+    app.on('ready', () => {
+        let win = new BrowserWindow({
+            width: app_config.width,
+            height: app_config.height,
+        });
+
+        win.loadUrl(index_html);
+
+        win.on('closed', function(){
+            win = null;
+        });
+
+        let fetcher = new TrendFetcher(win.webContents);
+        ipc.on('renderer-ready', () => fetcher.start());
+        ipc.on('force-update-repos', () => fetcher.doScraping());
+
+        let app_icon = new Tray(normal_icon);
+        const context_menu = Menu.buildFromTemplate([
+            {
+                label: 'Show Window',
+                click: () => win.show(),
+            },
+            {
+                label: 'Quit',
+                accelerator: 'CmdOrCtrl+Q',
+                click: () => app.quit(),
+            }
+        ]);
+        app_icon.setContextMenu(context_menu);
+        ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
+        ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
     });
-
-    win.loadUrl(index_html);
-
-    win.on('closed', function(){
-        win = null;
-    });
-
-    let fetcher = new TrendFetcher(win.webContents);
-    ipc.on('renderer-ready', () => fetcher.start());
-    ipc.on('force-update-repos', () => fetcher.doScraping());
-
-    let app_icon = new Tray(normal_icon);
-    const context_menu = Menu.buildFromTemplate([
-        {
-            label: 'Show Window',
-            click: () => win.show(),
-        },
-        {
-            label: 'Quit',
-            accelerator: 'CmdOrCtrl+Q',
-            click: () => app.quit(),
-        }
-    ]);
-    app_icon.setContextMenu(context_menu);
-    ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
-    ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
 }
 
-app.on('ready', () => app_config.mode === 'menubar' ? startMenubarApp() : startIsolatedApp());
+if (app_config.mode === 'menubar') {
+    startMenubarApp();
+} else {
+    startIsolatedApp();
+}
