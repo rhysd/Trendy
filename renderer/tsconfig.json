@@ -10,6 +10,7 @@
     "jsx": "react"
   },
   "files": [
+    "components/embedded-browser.tsx",
     "components/icon-button.tsx",
     "components/external-link.tsx",
     "components/lang-trend.tsx",

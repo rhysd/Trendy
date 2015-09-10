@@ -6,6 +6,7 @@ export interface ActionType {
     repos?: Object;
     lang?: string;
     full_name?: string;
+    url?: string;
 }
 
 export function updateRepos(repos: Object) {
@@ -20,5 +21,12 @@ export function checkUnread(lang: string, full_name: string) {
         type: ActionKind.CheckUnread,
         lang: lang,
         full_name: full_name,
+    });
+}
+
+export function openURL(url: string) {
+    Dispatcher.dispatch({
+        type: ActionKind.OpenURL,
+        url: url,
     });
 }

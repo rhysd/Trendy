@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as Action from '../actions';
+
 const openExternal: (url: string) => void = global.require("shell").openExternal;
 
 export function openExternalLink(event: React.SyntheticEvent) {
@@ -9,7 +11,7 @@ export function openExternalLink(event: React.SyntheticEvent) {
     let target: any = event.target;
     while (target !== null) {
         if (target.href !== undefined && target.className.indexOf("external-link") === 0) {
-            openExternal(target.href);
+            Action.openURL(target.href);
             return;
         }
         target = target.parentNode;

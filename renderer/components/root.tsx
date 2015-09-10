@@ -4,6 +4,7 @@ import RepoReceiver from '../repo-receiver';
 import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
+import EmbeddedBrowser from './embedded-browser';
 
 const ipc: ElectronRenderer.InProcess = global.require('ipc');
 const remote: ElectronRenderer.Remote = global.require('remote');
@@ -87,6 +88,7 @@ interface RootState {
 export default class Root extends React.Component<{}, RootState> {
     repo_receiver: RepoReceiver;
     repo_listener: () => void;
+    config: ConfigJSON;
 
     constructor(props: {}) {
         super(props);
@@ -94,6 +96,7 @@ export default class Root extends React.Component<{}, RootState> {
         this.state = {
             tab: 'current',
         };
+        this.config = remote.getGlobal('config').load();
         this.repo_receiver = new RepoReceiver();
     }
 
@@ -143,6 +146,14 @@ export default class Root extends React.Component<{}, RootState> {
         shell.openItem(remote.getGlobal('config').path);
     }
 
+    getUserAgent() {
+        if (this.config.mode === 'menubar') {
+            return 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53';
+        } else {
+            return null;
+        }
+    }
+
     render() {
         if (this.state.tab === 'new') {
             // Clear notified icon
@@ -176,6 +187,7 @@ export default class Root extends React.Component<{}, RootState> {
                     <IconButton icon="gear" color="white" onClick={this.openConfigFile}/>
                     <IconButton icon="sync" color="white" onClick={this.forceUpdateRepos}/>
                 </div>
+                <EmbeddedBrowser/>
             </div>
         );
     }

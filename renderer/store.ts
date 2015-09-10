@@ -144,6 +144,10 @@ store.dispatch_token = Dispatcher.register((action: ActionType) => {
         _unreadRepo(action.lang, action.full_name);
         break;
 
+    case ActionKind.OpenURL:
+        store.emit('url-clicked', action.url);
+        break;
+
     default:
         break;
     }

@@ -120,3 +120,83 @@ html, body {
   padding: 0.5em;
   font-size: 1.1rem;
 }
+
+.embedded-browser {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  height: 100vh;
+  width: 100vw;
+  font-size: 1rem;
+  color: white;
+  background-color: #333333;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.anime-slidein {
+  animation-duration: 0.2s;
+  animation-name: slidein;
+}
+.anime-slideout {
+  animation-duration: 0.2s;
+  animation-name: slideout;
+  margin-left: 100%;
+}
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+  }
+
+  to {
+    margin-left: 0%;
+  }
+}
+@keyframes slideout {
+  from {
+    margin-left: 0%;
+  }
+
+  to {
+    margin-left: 100%;
+  }
+}
+.embedded-browser .browser-title-bar {
+  frex: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0.25em 0.5em;
+}
+.embedded-browser .browser-title-bar .mega-octicon {
+  margin: 0em 0.25em;
+  cursor: pointer;
+  align-items: center;
+}
+.embedded-browser .page-back {
+  flex: none;
+}
+.embedded-browser .page-forward {
+  flex: none;
+}
+.embedded-browser .page-title {
+  flex: auto;
+  font-size: 1rem;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.embedded-browser .page-external {
+  flex: none;
+}
+.embedded-browser .browser-close {
+  flex: none;
+}
+.embedded-browser .browser-body {
+  flex: auto;
+  height: 100%;
+  width: 100%;
+}
