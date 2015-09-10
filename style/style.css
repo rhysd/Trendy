@@ -29,12 +29,16 @@ html, body {
   background-color: #333333;
   z-index: 1;
 }
-.contents {
-  padding-top: calc(8px * 2 + 1rem + 1rem); /*tab's padding * 2 + 1 font height + content's margin*/
-  background-color: white;
+.root-footer .last-update {
+  color: #666666;
+  margin-left: 1em;
 }
 .root-footer .icon-button {
   float: right;
+}
+.contents {
+  padding-top: calc(8px * 2 + 1rem + 1rem); /*tab's padding * 2 + 1 font height + content's margin*/
+  background-color: white;
 }
 
 .tabnav {
@@ -96,6 +100,9 @@ html, body {
 .repo .secondary .metadata > * {
   margin-right: 0.5em;
   min-width: 5em;
+}
+.repo .footer .lang-name {
+  min-height: 0.875em;
 }
 .repo .footer .lang-name {
   font-size: 0.875em; /*also as bottom padding of .repo container*/

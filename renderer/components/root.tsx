@@ -172,6 +172,7 @@ export default class Root extends React.Component<{}, RootState> {
                     <Trends repos={this.getReposToShow()} kind={this.state.tab}/>
                 </div>
                 <div className="root-footer">
+                    <span className="last-update">{RepoStore.getLastUpdateTime()}</span>
                     <IconButton icon="gear" color="white" onClick={this.openConfigFile}/>
                     <IconButton icon="sync" color="white" onClick={this.forceUpdateRepos}/>
                 </div>

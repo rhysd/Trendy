@@ -13,6 +13,7 @@ class RepoStore extends EventEmitter {
     current_repos: Object;
     all_repos: Object;
     dispatch_token: string;
+    last_update: number;
 
     loadStorage(name: string) {
         const saved = window.localStorage.getItem(name);
@@ -39,6 +40,7 @@ class RepoStore extends EventEmitter {
         this.unread_repos = this.loadStorage('unread_repos');
         this.current_repos = this.loadStorage('current_repos');
         this.all_repos = this.loadStorage('all_repos');
+        this.last_update = 0;
     }
 
     getAllRepos() {
@@ -51,6 +53,14 @@ class RepoStore extends EventEmitter {
 
     getUnreadRepos() {
         return this.unread_repos;
+    }
+
+    getLastUpdateTime() {
+        if (this.last_update === 0) {
+            return "";
+        }
+
+        return "Updated at " + new Date(this.last_update).toLocaleTimeString();
     }
 }
 
@@ -87,6 +97,7 @@ function _updateRepos(new_repos: Object) {
         }
     }
 
+    store.last_update = Date.now();
     store.emit('updated');
 
     if (Object.keys(store.unread_repos).length === 0) {
