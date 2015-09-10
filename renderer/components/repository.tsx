@@ -37,6 +37,14 @@ export default class Repository extends React.Component<Props, State> {
         });
     }
 
+    getRepoURL() {
+        if (this.props.repo.readme_url !== undefined) {
+            return this.props.repo.readme_url;
+        } else {
+            return this.props.repo.html_url;
+        }
+    }
+
     render() {
         return (
             <div className="repo" ref="root" onMouseOver={this.showCheck.bind(this)} onMouseOut={this.hideCheck.bind(this)}>
@@ -45,7 +53,7 @@ export default class Repository extends React.Component<Props, State> {
                         <span className={this.titleIcon()}/>
                         <ExternalLink url={this.props.repo.owner.html_url}>
                             {this.props.repo.owner.login}
-                        </ExternalLink> / <ExternalLink url={this.props.repo.html_url}>
+                        </ExternalLink> / <ExternalLink url={this.getRepoURL()}>
                             {this.props.repo.name}
                         </ExternalLink>
                     </div>

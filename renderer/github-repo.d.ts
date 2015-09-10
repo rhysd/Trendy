@@ -88,5 +88,6 @@ declare module GitHubAPI {
         default_branch: string;
         network_count: number;
         subscribers_count: number;
+        readme_url?: string;
     }
 }

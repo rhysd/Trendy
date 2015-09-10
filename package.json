@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "flux": "^2.1.1",
-    "github-trend": "^0.0.3",
+    "github-trend": "^0.0.4",
     "menubar": "^2.2.1",
     "react": "^0.13.3"
   },

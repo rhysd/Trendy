@@ -32,7 +32,7 @@ export default class TrendFetcher {
     doScraping() {
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
             if (err) {
-                this.client.fetchTrendings(['']).then(repos => {
+                this.client.fetchTrendingsWithReadme(['']).then(repos => {
                     this.sendToRenderer(repos);
                 }).catch((err: Error) => {
                     console.log('doScraping: error: ' + err.message);
