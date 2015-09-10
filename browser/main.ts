@@ -7,12 +7,13 @@ import * as Menu from 'menu';
 import TrendFetcher from './trend-fetcher';
 import Config from './config';
 
-const normal_icon = path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph.png');
+global.config = new Config(path.join(app.getPath('userData'), 'config.json'));
+const app_config = global.config.load();
+
+const normal_icon = path.join(__dirname, '..', '..', 'resource', 'trayicon', app_config.icon_color === 'white' ? 'graph_white.png' : 'graph.png');
 const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph_notify.png');
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 
-global.config = new Config(path.join(app.getPath('userData'), 'config.json'));
-const app_config = global.config.load();
 
 function startMenubarApp() {
     let menuConfig = {

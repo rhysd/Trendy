@@ -3,7 +3,8 @@ interface ConfigJSON {
     width: number;
     height: number;
     languages: string[];
-    [key: string]: any;
+    icon_color: string;
+    [key: string]: string | number | string[];
 }
 
 declare class Config {

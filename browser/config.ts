@@ -13,6 +13,7 @@ export default class Config {
             width: 400,
             height: 400,
             languages: ['all'],
+            icon_color: 'black',
         }
     }
 
