@@ -180,14 +180,26 @@ html, body {
 .embedded-browser .page-forward {
   flex: none;
 }
+.embedded-browser .page-back.disabled {
+  color: #666666;
+}
+.embedded-browser .page-forward.disabled {
+  color: #666666;
+}
 .embedded-browser .page-title {
   flex: auto;
+  color: inherit;
+}
+.embedded-browser .page-title .page-link {
+  display: block;
+  width: 100%;
   font-size: 1rem;
   margin-left: 0.5em;
   margin-right: 0.5em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: inherit;
 }
 .embedded-browser .page-external {
   flex: none;

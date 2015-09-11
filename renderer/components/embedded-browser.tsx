@@ -3,11 +3,18 @@ import Store from '../store';
 
 const openExternal: (url: string) => boolean = global.require('shell').openExternal;
 
-export default class EmbeddedBrowser extends React.Component<{}, {}> {
+interface State {
+    backable: boolean;
+    forwardable: boolean;
+}
+
+export default class EmbeddedBrowser extends React.Component<{}, State> {
     url_click_listener: (url: string) => void;
 
     constructor(props: {}) {
         super(props);
+
+        this.state = {backable: false, forwardable: false};
     }
 
     getUserAgent(elem: Element) {
@@ -18,6 +25,13 @@ export default class EmbeddedBrowser extends React.Component<{}, {}> {
         }
     }
 
+    updateBackForward(webview) {
+        this.setState({
+            backable: webview.canGoBack(),
+            forwardable: webview.canGoForward(),
+        });
+    }
+
     componentDidMount() {
         let body = this.refs['body'].getDOMNode();
         let webview = document.createElement('webview') as ElectronRenderer.Webview;
@@ -26,7 +40,9 @@ export default class EmbeddedBrowser extends React.Component<{}, {}> {
         webview.addEventListener('did-finish-load', () => {
             let title = this.refs['title'].getDOMNode() as HTMLSpanElement;
             title.innerText = webview.getTitle();
+            this.updateBackForward(webview);
         });
+
         body.appendChild(webview);
 
         this.url_click_listener = url => {
@@ -84,6 +100,7 @@ export default class EmbeddedBrowser extends React.Component<{}, {}> {
         };
         root.addEventListener('animationend', animation_ended);
         let webview = document.getElementById('embedded-webview') as ElectronRenderer.Webview;
+        webview.src = '';
         webview.style.display = 'none';
     }
 
@@ -96,10 +113,10 @@ export default class EmbeddedBrowser extends React.Component<{}, {}> {
         return (
             <div className="embedded-browser" ref="root" style={{display: 'none'}}>
                 <div className="browser-title-bar">
-                    <span className="page-back" onClick={this.goBack}>
+                    <span className={this.state.backable ? "page-back" : "page-back disabled"} onClick={this.goBack} ref="back">
                         <span className="mega-octicon octicon-arrow-left"/>
                     </span>
-                    <span className="page-forward" onClick={this.goForward}>
+                    <span className={this.state.forwardable ? "page-forward" : "page-forward disabled"} onClick={this.goForward} ref="forward">
                         <span className="mega-octicon octicon-arrow-right"/>
                     </span>
                     <span className="page-title" ref="title"/>
