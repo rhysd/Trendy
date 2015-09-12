@@ -10,7 +10,7 @@ export default class TrendFetcher {
     client: GHT.Client;
     stopped: boolean;
 
-    constructor(private renderer: GitHubElectron.WebContents, proxy?: string) {
+    constructor(private renderer: GitHubElectron.WebContents, public langs: string[], proxy?: string) {
         this.client = new GHT.Client({proxy: proxy});
         this.stopped = true;
     }
@@ -32,15 +32,16 @@ export default class TrendFetcher {
     doScraping() {
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
             if (err) {
-                this.client.fetchTrendingsWithReadme(['']).then(repos => {
+                this.client.fetchTrendingsWithReadme(this.langs).then(repos => {
                     this.sendToRenderer(repos);
                 }).catch((err: Error) => {
                     console.log('doScraping: error: ' + err.message);
+                    this.renderer.send('fetch-error', 'API rate limit exceeded.  Please login to GitHub.', err.message);
                 });
             } else {
                 this.sendToRenderer(JSON.parse(data));
             }
-        })
+        });
     }
 
     sendToRenderer(repos: {[key: string]: any}): void {

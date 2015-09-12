@@ -6,6 +6,7 @@ export default class RepoReceiver {
     constructor() {
         console.log('receiver start');
         ipc.on('repositories', repos => Action.updateRepos(repos));
+        ipc.on('fetch-error', reason => Action.notifyScrapingFailed(reason));
         ipc.send('renderer-ready');
     }
 }

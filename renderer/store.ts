@@ -148,6 +148,10 @@ store.dispatch_token = Dispatcher.register((action: ActionType) => {
         store.emit('url-clicked', action.url);
         break;
 
+    case ActionKind.NotifyScrapingFailed:
+        store.emit('scraping-failed', action.reason);
+        break;
+
     default:
         break;
     }

@@ -29,7 +29,7 @@ function startMenubarApp() {
 
     menu_window.on('after-create-window', () => {
         menu_window.tray.setToolTip('Show Menu Window');
-        let fetcher = new TrendFetcher(menu_window.window.webContents);
+        let fetcher = new TrendFetcher(menu_window.window.webContents, app_config.languages);
         ipc.on('renderer-ready', () => fetcher.start());
         ipc.on('force-update-repos', () => fetcher.doScraping());
         ipc.on('tray-icon-normal', () => menu_window.tray.setImage(normal_icon));
@@ -46,11 +46,7 @@ function startIsolatedApp() {
 
         win.loadUrl(index_html);
 
-        win.on('closed', function(){
-            win = null;
-        });
-
-        let fetcher = new TrendFetcher(win.webContents);
+        let fetcher = new TrendFetcher(win.webContents, app_config.languages);
         ipc.on('renderer-ready', () => fetcher.start());
         ipc.on('force-update-repos', () => fetcher.doScraping());
 
@@ -59,6 +55,10 @@ function startIsolatedApp() {
             {
                 label: 'Show Window',
                 click: () => win.show(),
+            },
+            {
+                label: 'Force Update',
+                click: () => fetcher.doScraping(),
             },
             {
                 label: 'Quit',

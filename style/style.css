@@ -163,6 +163,7 @@ html, body {
     margin-left: 100%;
   }
 }
+
 .embedded-browser .browser-title-bar {
   frex: none;
   display: flex;
@@ -211,4 +212,30 @@ html, body {
   flex: auto;
   height: 100%;
   width: 100%;
+}
+
+.root .contents .toast {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  margin: 3em;
+  width: calc(100vw - 6em);
+}
+.root .contents .toast .octicon {
+  cursor: pointer;
+}
+.anime-fadeout {
+  animation-duration: 0.3s;
+  animation-name: fadeout;
+  opacity: 0.0;
+}
+@keyframes fadeout {
+  from {
+    opacity: 1.0;
+  }
+
+  to {
+    opacity: 0.0;
+  }
 }

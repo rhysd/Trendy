@@ -5,6 +5,7 @@ import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
 import EmbeddedBrowser from './embedded-browser';
+import ErrorToast from './error-toast';
 
 const ipc: ElectronRenderer.InProcess = global.require('ipc');
 const remote: ElectronRenderer.Remote = global.require('remote');
@@ -93,9 +94,7 @@ export default class Root extends React.Component<{}, RootState> {
     constructor(props: {}) {
         super(props);
 
-        this.state = {
-            tab: 'current',
-        };
+        this.state = {tab: 'current'};
         this.config = remote.getGlobal('config').load();
         this.repo_receiver = new RepoReceiver();
     }
@@ -180,6 +179,7 @@ export default class Root extends React.Component<{}, RootState> {
                     </div>
                 </div>
                 <div className="contents">
+                    <ErrorToast/>
                     <Trends repos={this.getReposToShow()} kind={this.state.tab}/>
                 </div>
                 <div className="root-footer">

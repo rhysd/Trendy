@@ -7,6 +7,7 @@ export interface ActionType {
     lang?: string;
     full_name?: string;
     url?: string;
+    reason?: string;
 }
 
 export function updateRepos(repos: Object) {
@@ -28,5 +29,12 @@ export function openURL(url: string) {
     Dispatcher.dispatch({
         type: ActionKind.OpenURL,
         url: url,
+    });
+}
+
+export function notifyScrapingFailed(reason: string) {
+    Dispatcher.dispatch({
+        type: ActionKind.NotifyScrapingFailed,
+        reason: reason,
     });
 }
