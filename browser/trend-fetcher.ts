@@ -13,6 +13,12 @@ export default class TrendFetcher {
     constructor(private renderer: GitHubElectron.WebContents, public langs: string[], proxy?: string) {
         this.client = new GHT.Client({proxy: proxy});
         this.stopped = true;
+        for (const i in langs) {
+            langs[i] = langs[i].toLowerCase();
+            if (langs[i] === 'all') {
+                langs[i] = '';
+            }
+        }
     }
 
     start() {
