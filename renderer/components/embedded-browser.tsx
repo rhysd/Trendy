@@ -33,12 +33,12 @@ export default class EmbeddedBrowser extends React.Component<{}, State> {
     }
 
     componentDidMount() {
-        let body = this.refs['body'].getDOMNode();
+        let body = React.findDOMNode(this.refs['body']);
         let webview = document.createElement('webview') as ElectronRenderer.Webview;
         webview.id = 'embedded-webview';
         webview.style.display = 'none';
         webview.addEventListener('did-finish-load', () => {
-            let title = this.refs['title'].getDOMNode() as HTMLSpanElement;
+            let title = React.findDOMNode(this.refs['title']) as HTMLSpanElement;
             title.innerText = webview.getTitle();
             this.updateBackForward(webview);
         });
@@ -50,11 +50,11 @@ export default class EmbeddedBrowser extends React.Component<{}, State> {
                 return;
             }
 
-            let root = this.refs['root'].getDOMNode() as HTMLElement;
+            let root = React.findDOMNode(this.refs['root']) as HTMLElement;
             root.style.display = '';
             root.className = "embedded-browser anime-slidein";
 
-            let body = this.refs['body'].getDOMNode();
+            let body = React.findDOMNode(this.refs['body']);
 
             let webview = document.getElementById('embedded-webview') as ElectronRenderer.Webview;
             webview.style.display = '';
@@ -92,7 +92,7 @@ export default class EmbeddedBrowser extends React.Component<{}, State> {
     }
 
     close() {
-        let root = this.refs['root'].getDOMNode() as HTMLElement;
+        let root = React.findDOMNode(this.refs['root']) as HTMLElement;
         root.className = "embedded-browser anime-slideout";
         const animation_ended = () => {
             root.style.display = 'none';
