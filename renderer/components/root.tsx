@@ -1,6 +1,5 @@
 import * as React from 'react';
 import RepoStore from '../store';
-import RepoReceiver from '../repo-receiver';
 import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
@@ -87,7 +86,6 @@ interface RootState {
 }
 
 export default class Root extends React.Component<{}, RootState> {
-    repo_receiver: RepoReceiver;
     repo_listener: () => void;
     config: ConfigJSON;
 
@@ -96,7 +94,6 @@ export default class Root extends React.Component<{}, RootState> {
 
         this.state = {tab: 'current'};
         this.config = remote.getGlobal('config').load();
-        this.repo_receiver = new RepoReceiver();
     }
 
     componentDidMount() {
