@@ -23,7 +23,8 @@
     "flux": "^2.1.1",
     "github-trend": "^0.0.4",
     "menubar": "^2.2.1",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "request": "^2.61.0"
   },
   "devDependencies": {
     "asar": "^0.8.0",

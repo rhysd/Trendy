@@ -9,6 +9,7 @@
     "sourceMap": true
   },
   "files": [
+    "authentication.ts",
     "config.ts",
     "trend-fetcher.ts",
     "main.ts",

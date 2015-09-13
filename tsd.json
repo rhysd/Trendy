@@ -22,6 +22,12 @@
     },
     "flux/flux.d.ts": {
       "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
+    },
+    "request/request.d.ts": {
+      "commit": "7a3ca1f0b8a0960af9fc1838f3234cc9d6ce0645"
+    },
+    "form-data/form-data.d.ts": {
+      "commit": "7a3ca1f0b8a0960af9fc1838f3234cc9d6ce0645"
     }
   }
 }
