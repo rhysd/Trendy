@@ -106,11 +106,20 @@ export default class Root extends React.Component<{}, RootState> {
             selected_lang: this.state.selected_lang,
         });
         RepoStore.on('updated', this.repo_listener);
+
+        remote.getCurrentWindow().on('focus', this.clearTrayIconOnNewTab.bind(this));
     }
 
     componentWillUnmount() {
         if (this.repo_listener) {
             RepoStore.removeListener('updated', this.repo_listener);
+        }
+    }
+
+    clearTrayIconOnNewTab() {
+        if (this.state.tab === 'new') {
+            // Clear notified icon
+            ipc.send('tray-icon-normal');
         }
     }
 
@@ -208,10 +217,7 @@ export default class Root extends React.Component<{}, RootState> {
     }
 
     render() {
-        if (this.state.tab === 'new') {
-            // Clear notified icon
-            ipc.send('tray-icon-normal');
-        }
+        this.clearTrayIconOnNewTab();
 
         const all_repos = this.getReposToShow();
         const repos = this.getSelectedRepos(all_repos);
