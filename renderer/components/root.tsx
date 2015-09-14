@@ -81,6 +81,51 @@ class Trends extends React.Component<TrendsProps, {}> {
    }
 }
 
+interface LangSelectorProps {
+    onSelect: (selected: string) => void;
+    selected_lang: string;
+    langs: string[];
+}
+
+class LangSelector extends React.Component<LangSelectorProps, {}> {
+    constructor(props: LangSelectorProps) {
+        super(props);
+    }
+
+    langSelected(event) {
+        let selected: string = null;
+        for (const o of event.target.options) {
+            if (o.selected) {
+                if (o.value !== "any language") {
+                    selected = o.value;
+                    break;
+                }
+            }
+        }
+
+        if (selected !== this.props.selected_lang) {
+            this.props.onSelect(selected);
+        }
+    }
+
+    render() {
+        let key = 0;
+        let children = [
+            <option>any language</option>
+        ];
+
+        for (const lang of this.props.langs) {
+            children.push(<option key={key++}>{lang}</option>);
+        }
+
+        return (
+            <select className="select select-sm" onChange={this.langSelected.bind(this)}>
+                {children}
+            </select>
+        );
+    }
+}
+
 interface RootState {
     tab: string;
     selected_lang: string;
@@ -169,21 +214,11 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    renderLangSelector(repos) {
-        let key = 0;
-        let children = [
-            <option>any language</option>
-        ];
-
-        for (const lang in repos) {
-            children.push(<option key={key++}>{lang}</option>);
-        }
-
-        return (
-            <select className="select select-sm" onChange={this.langSelected.bind(this)}>
-                {children}
-            </select>
-        );
+    onLangSelected(selected: string) {
+        this.setState({
+            tab: this.state.tab,
+            selected_lang: selected, 
+        });
     }
 
     getSelectedRepos(all) {
@@ -197,25 +232,6 @@ export default class Root extends React.Component<{}, RootState> {
         return selected;
     }
 
-    langSelected(event) {
-        let selected: string = null;
-        for (const o of event.target.options) {
-            if (o.selected) {
-                if (o.value !== "any language") {
-                    selected = o.value;
-                    break;
-                }
-            }
-        }
-
-        if (selected !== this.state.selected_lang) {
-            this.setState({
-                tab: this.state.tab,
-                selected_lang: selected, 
-            });
-        }
-    }
-
     render() {
         this.clearTrayIconOnNewTab();
 
@@ -227,7 +243,7 @@ export default class Root extends React.Component<{}, RootState> {
                 <div className="root-header">
                     <div className="tabnav">
                         <div className="tabnav-extra right">
-                            {this.renderLangSelector(all_repos)}
+                            <LangSelector selected_lang={this.state.selected_lang} langs={Object.keys(all_repos)} onSelect={this.onLangSelected.bind(this)} />
                         </div>
                         <nav className="tabnav-tabs">
                             <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
