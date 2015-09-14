@@ -32,13 +32,20 @@ function startMenubarApp() {
     menu_window.on('after-create-window', () => {
         menu_window.tray.setToolTip('Show Menu Window');
         let fetcher = new TrendFetcher(menu_window.window.webContents, app_config.languages);
-
-        // TODO: Set auth token if available
+        auth.getToken().then((access_token: string) => {
+            fetcher.setToken(access_token);
+        });
 
         ipc.on('renderer-ready', () => fetcher.start());
         ipc.on('force-update-repos', () => fetcher.doScraping());
         ipc.on('tray-icon-normal', () => menu_window.tray.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => menu_window.tray.setImage(notified_icon));
+        ipc.on('start-github-login', () => {
+            auth.login().then((token: string) => {
+                fetcher.setToken(token);
+                fetcher.doScraping();
+            }).catch(err => menu_window.window.webContents.send('fetch-error', 'Login failed! Please try again after.', err.message))
+        });
     });
 }
 
@@ -55,8 +62,6 @@ function startIsolatedApp() {
         auth.getToken().then((access_token: string) => {
             fetcher.setToken(access_token);
         });
-        ipc.on('renderer-ready', () => fetcher.start());
-        ipc.on('force-update-repos', () => fetcher.doScraping());
 
         let app_icon = new Tray(normal_icon);
         const context_menu = Menu.buildFromTemplate([
@@ -75,6 +80,9 @@ function startIsolatedApp() {
             }
         ]);
         app_icon.setContextMenu(context_menu);
+
+        ipc.on('renderer-ready', () => fetcher.start());
+        ipc.on('force-update-repos', () => fetcher.doScraping());
         ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
         ipc.on('start-github-login', () => {
