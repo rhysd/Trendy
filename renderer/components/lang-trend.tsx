@@ -2,6 +2,8 @@ import * as React from 'react';
 import Repository from './repository';
 import * as Action from '../actions';
 
+const openExternal: (url: string) => boolean = global.require('shell').openExternal;
+
 interface Props {
     lang: string;
     repos: GitHubAPI.Repo[] | {[full_name: string]: GitHubAPI.Repo};
@@ -51,11 +53,21 @@ export default class LangTrend extends React.Component<Props, {}> {
         }
     }
 
+    onLangNameClicked(event) {
+        event.preventDefault();
+        const query = this.props.lang === 'all languages' ? '' : `?l=${this.props.lang}`;
+        openExternal('https://github.com/trending' + query);
+    }
+
     render() {
         return (
             <div className="repos">
                 <div className="lang">
-                    <span className="octicon octicon-pulse"/>{this.props.lang ? this.props.lang : "all languages"}<span className="counter">{this.numRepos()}</span>
+                    <span className="octicon octicon-pulse"/>
+                    <a className="lang-link" href="#" onClick={this.onLangNameClicked.bind(this)}>
+                        {this.props.lang ? this.props.lang : 'all languages'}
+                    </a>
+                    <span className="counter">{this.numRepos()}</span>
                 </div>
                 <div className="repo-list">
                     {this.repositories()}
