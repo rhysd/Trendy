@@ -4,7 +4,7 @@ import * as Action from '../actions';
 
 interface Props {
     lang: string;
-    repos: GitHubAPI.Repo[] | Object;
+    repos: GitHubAPI.Repo[] | {[full_name: string]: GitHubAPI.Repo};
     key?: number;
     show_check: boolean;
 }

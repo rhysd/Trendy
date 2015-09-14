@@ -83,6 +83,7 @@ class Trends extends React.Component<TrendsProps, {}> {
 
 interface RootState {
     tab: string;
+    selected_lang: string;
 }
 
 export default class Root extends React.Component<{}, RootState> {
@@ -92,12 +93,18 @@ export default class Root extends React.Component<{}, RootState> {
     constructor(props: {}) {
         super(props);
 
-        this.state = {tab: 'current'};
+        this.state = {
+            tab: 'current',
+            selected_lang: null,
+        };
         this.config = remote.getGlobal('config').load();
     }
 
     componentDidMount() {
-        this.repo_listener = () => this.setState({tab: this.state.tab});
+        this.repo_listener = () => this.setState({
+            tab: this.state.tab,
+            selected_lang: this.state.selected_lang,
+        });
         RepoStore.on('updated', this.repo_listener);
     }
 
@@ -129,7 +136,10 @@ export default class Root extends React.Component<{}, RootState> {
         event.preventDefault();
         window.scrollTo(0, 0);
         if (this.state.tab !== tabname) {
-            this.setState({tab: tabname});
+            this.setState({
+                tab: tabname,
+                selected_lang: this.state.selected_lang,
+            });
         }
     }
 
@@ -150,23 +160,68 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
+    renderLangSelector(repos) {
+        let key = 0;
+        let children = [
+            <option>any language</option>
+        ];
+
+        for (const lang in repos) {
+            children.push(<option key={key++}>{lang}</option>);
+        }
+
+        return (
+            <select className="select select-sm" onChange={this.langSelected.bind(this)}>
+                {children}
+            </select>
+        );
+    }
+
+    getSelectedRepos(all) {
+        const l = this.state.selected_lang;
+        if (l === null) {
+            return all;
+        }
+
+        let selected = {};
+        selected[l] = all[l];
+        return selected;
+    }
+
+    langSelected(event) {
+        let selected: string = null;
+        for (const o of event.target.options) {
+            if (o.selected) {
+                if (o.value !== "any language") {
+                    selected = o.value;
+                    break;
+                }
+            }
+        }
+
+        if (selected !== this.state.selected_lang) {
+            this.setState({
+                tab: this.state.tab,
+                selected_lang: selected, 
+            });
+        }
+    }
+
     render() {
         if (this.state.tab === 'new') {
             // Clear notified icon
             ipc.send('tray-icon-normal');
         }
 
+        const all_repos = this.getReposToShow();
+        const repos = this.getSelectedRepos(all_repos);
+
         return (
             <div className="root">
                 <div className="root-header">
                     <div className="tabnav">
                         <div className="tabnav-extra right">
-                            <select className="select select-sm">
-                                <option>Language</option>
-                                <option>Not</option>
-                                <option>Implemented</option>
-                                <option>Yet</option>
-                            </select>
+                            {this.renderLangSelector(all_repos)}
                         </div>
                         <nav className="tabnav-tabs">
                             <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
@@ -177,7 +232,7 @@ export default class Root extends React.Component<{}, RootState> {
                 </div>
                 <div className="contents">
                     <ErrorToast/>
-                    <Trends repos={this.getReposToShow()} kind={this.state.tab}/>
+                    <Trends repos={repos} kind={this.state.tab}/>
                 </div>
                 <div className="root-footer">
                     <span className="last-update">{RepoStore.getLastUpdateTime()}</span>
