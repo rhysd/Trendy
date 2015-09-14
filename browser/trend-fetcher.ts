@@ -43,6 +43,12 @@ export default class TrendFetcher {
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
             if (err) {
                 this.client.fetchTrendingsWithReadme(this.langs).then(repos => {
+                    // Note:
+                    // Replace language '' with readable name 'all languages'
+                    if (repos[''] !== undefined) {
+                        repos['all languages'] = repos[''];
+                        delete repos[''];
+                    }
                     this.sendToRenderer(repos);
                 }).catch((err: Error) => {
                     console.log('doScraping: error: ' + err.message);
