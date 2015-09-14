@@ -1,7 +1,7 @@
 {
   "name": "trendy",
   "productName": "Trendy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Menubar app to keep you in the loop of trend",
   "main": "./build/browser/main.js",
   "bin": {
@@ -12,6 +12,13 @@
     "type": "git",
     "url": "https://github.com/rhysd/Trendy.git"
   },
+  "keywords": [
+    "GitHub",
+    "trend",
+    "trending repositories",
+    "menubar",
+    "Electron"
+  ],
   "bugs": {
     "url": "https://github.com/rhysd/Trendy/issues"
   },
