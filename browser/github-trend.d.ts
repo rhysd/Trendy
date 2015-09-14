@@ -35,6 +35,8 @@ declare module 'github-trend' {
     }
 
     export class Client {
+        token: string;
+
         constructor(config?: ScraperConfig);
         fetchGetAPI(repo: RepositoryEntry): Promise<Repository>;
         fetchTrending(lang: string): Promise<Repository[]>;

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Store from '../store';
 
+const ipc: ElectronRenderer.InProcess = global.require('ipc');
+
 interface State {
     last_reason: string;
 }
@@ -33,6 +35,23 @@ export default class ErrorToast extends React.Component<{}, State> {
         let root = React.findDOMNode(this.refs['root']);
         root.addEventListener('animationend', () => this.setState({last_reason: ''}));
         root.className = "toast anime-fadeout";
+    }
+
+    startLogin() {
+        ipc.send('start-github-login');
+        this.clicked();
+    }
+
+    renderError() {
+        if (this.state.last_reason === 'API-limit-exceeded') {
+            return (
+                <span>
+                    API limit exceeded.  Please <a href="#" onClick={this.startLogin.bind(this)}>login</a> or reduce the number of languages to scrape to avoid this propblem.
+                </span>
+            );
+        }
+
+        return <span>{this.state.last_reason}</span>;
     }
 
     render() {

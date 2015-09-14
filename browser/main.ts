@@ -52,10 +52,11 @@ function startIsolatedApp() {
         win.loadUrl(index_html);
 
         let fetcher = new TrendFetcher(win.webContents, app_config.languages);
+        auth.getToken().then((access_token: string) => {
+            fetcher.setToken(access_token);
+        });
         ipc.on('renderer-ready', () => fetcher.start());
         ipc.on('force-update-repos', () => fetcher.doScraping());
-
-        // TODO: Set auth token if available
 
         let app_icon = new Tray(normal_icon);
         const context_menu = Menu.buildFromTemplate([
@@ -76,6 +77,12 @@ function startIsolatedApp() {
         app_icon.setContextMenu(context_menu);
         ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
+        ipc.on('start-github-login', () => {
+            auth.login().then((token: string) => {
+                fetcher.setToken(token);
+                fetcher.doScraping();
+            }).catch(err => win.webContents.send('fetch-error', 'Login failed! Please try again after.', err.message))
+        });
     });
 }
 

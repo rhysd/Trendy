@@ -21,6 +21,10 @@ export default class TrendFetcher {
         }
     }
 
+    setToken(token: string) {
+        this.client.token = token;
+    }
+
     start() {
         this.stopped = false;
 
@@ -37,12 +41,14 @@ export default class TrendFetcher {
 
     doScraping() {
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
+            this.renderer.send('fetch-error', 'API-limit-exceeded', err.message);
+            return;
             if (err) {
                 this.client.fetchTrendingsWithReadme(this.langs).then(repos => {
                     this.sendToRenderer(repos);
                 }).catch((err: Error) => {
                     console.log('doScraping: error: ' + err.message);
-                    this.renderer.send('fetch-error', 'API rate limit exceeded.  Please login to GitHub.', err.message);
+                    this.renderer.send('fetch-error', 'API-limit-exceeded', err.message);
                 });
             } else {
                 this.sendToRenderer(JSON.parse(data));

@@ -90,7 +90,7 @@ export default class Authentication {
                 if (err) {
                     reject(err);
                 } else {
-                    try { resolve(JSON.parse(data).github); }
+                    try { resolve(JSON.parse(data).github as string); }
                     catch(e) { reject(e); }
                 }
             });
