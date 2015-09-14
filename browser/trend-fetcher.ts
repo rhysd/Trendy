@@ -41,14 +41,16 @@ export default class TrendFetcher {
 
     doScraping() {
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
-            this.renderer.send('fetch-error', 'API-limit-exceeded', err.message);
-            return;
             if (err) {
                 this.client.fetchTrendingsWithReadme(this.langs).then(repos => {
                     this.sendToRenderer(repos);
                 }).catch((err: Error) => {
                     console.log('doScraping: error: ' + err.message);
-                    this.renderer.send('fetch-error', 'API-limit-exceeded', err.message);
+                    if (!this.client.token) {
+                        this.renderer.send('fetch-error', 'API-limit-exceeded', err.message);
+                    } else {
+                        this.renderer.send('fetch-error', 'Something is wrong...', err.message);
+                    }
                 });
             } else {
                 this.sendToRenderer(JSON.parse(data));
