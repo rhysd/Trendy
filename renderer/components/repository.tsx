@@ -21,10 +21,6 @@ export default class Repository extends React.Component<Props, State> {
         };
     }
 
-    titleIcon() {
-        return this.props.repo.fork ? 'octicon octicon-repo-forked' : 'octicon octicon-repo';
-    }
-
     showCheck() {
         this.setState({
             check_visible: true,
@@ -50,8 +46,8 @@ export default class Repository extends React.Component<Props, State> {
             <div className="repo" ref="root" onMouseOver={this.showCheck.bind(this)} onMouseOut={this.hideCheck.bind(this)}>
                 <div className="secondary">
                     <div className="title">
-                        <span className={this.titleIcon()}/>
                         <ExternalLink url={this.props.repo.owner.html_url}>
+                            <img className="author-icon" src={this.props.repo.owner.avatar_url}/>
                             {this.props.repo.owner.login}
                         </ExternalLink> / <ExternalLink url={this.getRepoURL()}>
                             {this.props.repo.name}
