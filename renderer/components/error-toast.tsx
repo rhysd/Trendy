@@ -62,8 +62,12 @@ export default class ErrorToast extends React.Component<{}, State> {
         return (
             <div className="toast" ref="root">
                 <div className="flash flash-error">
-                    <span className="octicon octicon-x" onClick={this.clicked.bind(this)}/>{this.state.last_reason}
-                    API Rate Limit has been reached!
+                    <div className="close">
+                        <span className="octicon octicon-x" onClick={this.clicked.bind(this)}/>
+                    </div>
+                    <div className="main">
+                        {this.renderError()}
+                    </div>
                 </div>
             </div>
         );

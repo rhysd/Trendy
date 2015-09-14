@@ -220,10 +220,25 @@ html, body {
   left: 0;
   z-index: 2;
   margin: 3em;
-  width: calc(100vw - 6em);
+  min-width: calc(100vw - 6em);
+}
+.root .contents .toast .flash {
+  display: flex;
+  flex-direction: row;
+}
+.root .contents .toast .close {
+  flex: none;
+}
+.root .contents .toast .main {
+  flex: auto;
 }
 .root .contents .toast .octicon {
   cursor: pointer;
+}
+.root .contents .toast a {
+  font-weight: bold;
+  text-decoration: underline;
+  color: inherit;
 }
 .anime-fadeout {
   animation-duration: 0.3s;
