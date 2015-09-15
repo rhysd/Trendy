@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Repository from './repository';
 import * as Action from '../actions';
+import Store from '../store';
 
 const openExternal: (url: string) => boolean = global.require('shell').openExternal;
 
@@ -59,15 +60,28 @@ export default class LangTrend extends React.Component<Props, {}> {
         openExternal('https://github.com/trending' + query);
     }
 
+    renderColorBar() {
+        const color = Store.getLangColor(this.props.lang);
+        const style = {
+            backgroundColor: color || 'black'
+        };
+        console.log(this.props.lang + ' style: ' + JSON.stringify(style));
+
+        return <div className="color-bar" style={style}/>;
+    }
+
     render() {
         return (
             <div className="repos">
-                <div className="lang">
-                    <span className="octicon octicon-pulse"/>
-                    <a className="lang-link" href="#" onClick={this.onLangNameClicked.bind(this)}>
-                        {this.props.lang ? this.props.lang : 'all languages'}
-                    </a>
-                    <span className="counter">{this.numRepos()}</span>
+                <div className="header">
+                    {this.renderColorBar()}
+                    <div className="lang">
+                        <span className="octicon octicon-pulse"/>
+                        <a className="lang-link" href="#" onClick={this.onLangNameClicked.bind(this)}>
+                            {this.props.lang ? this.props.lang : 'all languages'}
+                        </a>
+                        <span className="counter">{this.numRepos()}</span>
+                    </div>
                 </div>
                 <div className="repo-list">
                     {this.repositories()}

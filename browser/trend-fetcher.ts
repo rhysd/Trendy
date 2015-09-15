@@ -28,6 +28,10 @@ export default class TrendFetcher {
     start() {
         this.stopped = false;
 
+        this.client.scraper.scrapeLanguageColors().then(colors => {
+            this.renderer.send('lang-colors', colors);
+        });
+
         const do_polling = () => {
             if (this.stopped) {
                 return;

@@ -8,6 +8,7 @@ export interface ActionType {
     full_name?: string;
     url?: string;
     reason?: string;
+    colors?: {[lang: string]: string};
 }
 
 export function updateRepos(repos: OrderedReposList) {
@@ -36,5 +37,12 @@ export function notifyScrapingFailed(reason: string) {
     Dispatcher.dispatch({
         type: ActionKind.NotifyScrapingFailed,
         reason: reason,
+    });
+}
+
+export function setLangColors(colors: {[lang: string]: string}) {
+    Dispatcher.dispatch({
+        type: ActionKind.SetLangColors,
+        colors: colors,
     });
 }

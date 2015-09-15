@@ -127,9 +127,19 @@ html, body {
   text-align: center;
   padding: 0.5em;
   font-size: 1.1rem;
+  flex: auto;
 }
 .repos .lang .lang-link {
   color: inherit;
+}
+.repos .header {
+  display: flex;
+  flex-direction: row;
+}
+.repos .color-bar {
+  flex: none;
+  min-height: 100%;
+  min-width: 1em;
 }
 
 .embedded-browser {

@@ -7,6 +7,7 @@ export default class RepoReceiver {
         console.log('receiver start');
         ipc.on('repositories', repos => Action.updateRepos(repos));
         ipc.on('fetch-error', reason => Action.notifyScrapingFailed(reason));
+        ipc.on('lang-colors', colors => Action.setLangColors(colors));
         ipc.send('renderer-ready');
     }
 }

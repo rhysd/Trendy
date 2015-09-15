@@ -14,6 +14,7 @@ class RepoStore extends EventEmitter {
     all_repos: UnorderedreposList;
     dispatch_token: string;
     last_update: number;
+    lang_colors: {[lang: string]: string};
 
     loadStorage(name: string) {
         const saved = window.localStorage.getItem(name);
@@ -41,6 +42,7 @@ class RepoStore extends EventEmitter {
         this.current_repos = this.loadStorage('current_repos');
         this.all_repos = this.loadStorage('all_repos');
         this.last_update = 0;
+        this.lang_colors = null;
     }
 
     getAllRepos() {
@@ -61,6 +63,17 @@ class RepoStore extends EventEmitter {
         }
 
         return "Updated at " + new Date(this.last_update).toLocaleTimeString();
+    }
+
+    getAllColors() {
+        return this.lang_colors;
+    }
+
+    getLangColor(lang: string) {
+        if (this.lang_colors === null) {
+            return null;
+        }
+        return this.lang_colors[lang];
     }
 }
 
@@ -150,6 +163,10 @@ store.dispatch_token = Dispatcher.register((action: ActionType) => {
 
     case ActionKind.NotifyScrapingFailed:
         store.emit('scraping-failed', action.reason);
+        break;
+
+    case ActionKind.SetLangColors:
+        store.lang_colors = action.colors;
         break;
 
     default:

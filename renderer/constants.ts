@@ -3,4 +3,5 @@ export enum ActionKind {
     CheckUnread,
     OpenURL,
     NotifyScrapingFailed,
+    SetLangColors,
 };
