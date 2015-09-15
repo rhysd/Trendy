@@ -14,6 +14,7 @@ export default class Config {
             height: 400,
             languages: ['all'],
             icon_color: 'black',
+            proxy: null,
         }
     }
 

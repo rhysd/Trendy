@@ -17,6 +17,13 @@ const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'g
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 const auth = new Auth(path.join(app.getPath('userData'), 'tokens.json'));
 
+function doLogin(fetcher: TrendFetcher, sender: GitHubElectron.WebContents) {
+    auth.login().then((token: string) => {
+        fetcher.setToken(token);
+        fetcher.doScraping();
+    }).catch(err => sender.send('fetch-error', 'Login failed! Please try again after.', err.message))
+}
+
 function startMenubarApp() {
     let menuConfig = {
         dir: __dirname,
@@ -31,7 +38,11 @@ function startMenubarApp() {
 
     menu_window.on('after-create-window', () => {
         menu_window.tray.setToolTip('Show Menu Window');
-        let fetcher = new TrendFetcher(menu_window.window.webContents, app_config.languages);
+        let fetcher = new TrendFetcher(
+                menu_window.window.webContents,
+                app_config.languages,
+                app_config.proxy || undefined
+            );
         auth.getToken().then((access_token: string) => {
             fetcher.setToken(access_token);
         });
@@ -40,12 +51,7 @@ function startMenubarApp() {
         ipc.on('force-update-repos', () => fetcher.doScraping());
         ipc.on('tray-icon-normal', () => menu_window.tray.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => menu_window.tray.setImage(notified_icon));
-        ipc.on('start-github-login', () => {
-            auth.login().then((token: string) => {
-                fetcher.setToken(token);
-                fetcher.doScraping();
-            }).catch(err => menu_window.window.webContents.send('fetch-error', 'Login failed! Please try again after.', err.message))
-        });
+        ipc.on('start-github-login', () => doLogin(fetcher, menu_window.window.webContents));
     });
 }
 
@@ -58,7 +64,11 @@ function startIsolatedApp() {
 
         win.loadUrl(index_html);
 
-        let fetcher = new TrendFetcher(win.webContents, app_config.languages);
+        let fetcher = new TrendFetcher(
+                win.webContents,
+                app_config.languages,
+                app_config.proxy || undefined
+            );
         auth.getToken().then((access_token: string) => {
             fetcher.setToken(access_token);
         });
@@ -85,12 +95,7 @@ function startIsolatedApp() {
         ipc.on('force-update-repos', () => fetcher.doScraping());
         ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
-        ipc.on('start-github-login', () => {
-            auth.login().then((token: string) => {
-                fetcher.setToken(token);
-                fetcher.doScraping();
-            }).catch(err => win.webContents.send('fetch-error', 'Login failed! Please try again after.', err.message))
-        });
+        ipc.on('start-github-login', () => doLogin(fetcher, win.webContents));
     });
 }
 

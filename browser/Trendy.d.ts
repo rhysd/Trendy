@@ -4,6 +4,7 @@ interface ConfigJSON {
     height: number;
     languages: string[];
     icon_color: string;
+    proxy: string;
     [key: string]: string | number | string[];
 }
 
