@@ -12,7 +12,7 @@ export default class Config {
             mode: 'menubar',
             width: 400,
             height: 400,
-            languages: ['all'],
+            languages: [],
             icon_color: 'black',
             proxy: null,
         }
