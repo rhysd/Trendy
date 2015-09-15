@@ -39,7 +39,7 @@ export default class Config {
         }
         catch (_) {
             this.cache = this.defaultConfig();
-            this.saveConfig();
+            fs.writeFile(this.path, JSON.stringify(this.cache, null, 2));
         }
 
         return this.cache;

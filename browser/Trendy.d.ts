@@ -12,6 +12,6 @@ interface ConfigJSON {
 declare class Config {
     constructor(path: string);
     load(): ConfigJSON;
-    saveConfig(): void;
+    updateConfig(key: string, value: ConfigValue): void;
 }
 

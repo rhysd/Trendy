@@ -16,7 +16,7 @@ export default class TrendFetcher {
         this.stopped = true;
         for (const i in langs) {
             langs[i] = langs[i].toLowerCase();
-            if (langs[i] === 'all') {
+            if (langs[i] === 'any') {
                 langs[i] = '';
             }
         }
@@ -27,6 +27,7 @@ export default class TrendFetcher {
     }
 
     start() {
+        console.log('start!');
         this.stopped = false;
 
         this.client.scraper.scrapeLanguageColors().then(colors => {
@@ -47,7 +48,6 @@ export default class TrendFetcher {
             if (this.stopped) {
                 return;
             }
-            console.log('Update!: ' + new Date(Date.now()).toLocaleString());
             this.doScraping();
             setTimeout(do_polling, POLLING_INTERVAL);
         }
@@ -55,13 +55,15 @@ export default class TrendFetcher {
     }
 
     doScraping() {
+        console.log('Update!: ' + new Date(Date.now()).toLocaleString());
+
         fs.readFile(TEST_FILE_PATH, {encoding: 'utf8'}, (err, data) => {
             if (err) {
                 this.client.fetchTrendingsWithReadme(this.langs).then(repos => {
                     // Note:
                     // Replace language '' with readable name 'all languages'
                     if (repos[''] !== undefined) {
-                        repos['all languages'] = repos[''];
+                        repos['any'] = repos[''];
                         delete repos[''];
                     }
                     this.sendToRenderer(repos);
