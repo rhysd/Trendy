@@ -91,3 +91,9 @@ declare module GitHubAPI {
         readme_url?: string;
     }
 }
+
+declare type OrderedRepos = GitHubAPI.Repo[];
+declare type Unorderedrepos = {[full_name: string]: GitHubAPI.Repo};
+
+declare type OrderedReposList = {[lang: string]: OrderedRepos};
+declare type UnorderedreposList = {[lang: string]: Unorderedrepos};

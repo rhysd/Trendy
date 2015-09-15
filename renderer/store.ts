@@ -9,9 +9,9 @@ const fs = global.require('fs');
 const ipc: ElectronRenderer.InProcess = global.require('ipc');
 
 class RepoStore extends EventEmitter {
-    unread_repos: Object;
-    current_repos: Object;
-    all_repos: Object;
+    unread_repos: UnorderedreposList;
+    current_repos: OrderedReposList;
+    all_repos: UnorderedreposList;
     dispatch_token: string;
     last_update: number;
 
@@ -76,7 +76,7 @@ export default store;
 // new_repos, unread_repos: Map<LangName, Map<RepoName, Repository>>
 // current_repos: Map<LangName, Repository[]>
 
-function _updateRepos(new_repos: Object) {
+function _updateRepos(new_repos: OrderedReposList) {
     store.current_repos = new_repos;
 
     for (const lang in new_repos) {

@@ -31,7 +31,8 @@
     "github-trend": "^0.0.5",
     "menubar": "^2.2.1",
     "react": "^0.13.3",
-    "request": "^2.61.0"
+    "request": "^2.61.0",
+    "slideout": "^0.1.9"
   },
   "devDependencies": {
     "asar": "^0.8.0",

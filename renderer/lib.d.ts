@@ -1,5 +1,6 @@
 /// <reference path="../typings/tsd.d.ts" />
 /// <reference path="./github-repo.d.ts" />
+/// <reference path="./slideout.d.ts" />
 /// <reference path="../browser/Trendy.d.ts" />
 
 declare module NodeJS {

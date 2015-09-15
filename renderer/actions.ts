@@ -3,14 +3,14 @@ import Dispatcher from './dispatcher';
 
 export interface ActionType {
     type: ActionKind;
-    repos?: Object;
+    repos?: OrderedReposList;
     lang?: string;
     full_name?: string;
     url?: string;
     reason?: string;
 }
 
-export function updateRepos(repos: Object) {
+export function updateRepos(repos: OrderedReposList) {
     Dispatcher.dispatch({
         type: ActionKind.UpdateRepos,
         repos: repos,

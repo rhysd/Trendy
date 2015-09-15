@@ -28,13 +28,6 @@ html, body {
   background-color: #333333;
   z-index: 1;
 }
-.root-footer .last-update {
-  color: #666666;
-  margin-left: 1em;
-}
-.root-footer .icon-button {
-  float: right;
-}
 .contents {
   padding-top: calc(8px * 2 + 1rem + 1rem); /*tab's padding * 2 + 1 font height + content's margin*/
   background-color: white;
@@ -271,4 +264,58 @@ html, body {
   to {
     opacity: 0.0;
   }
+}
+
+.slideout-menu {
+  position: fixed;
+  left: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+  width: 256px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+}
+.slideout-panel {
+  position:relative;
+  z-index: 1;
+}
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+.slide-menu {
+  min-width: 256px;
+  float: right;
+}
+.slide-menu h2 {
+  margin: 1em 1em 0em;
+}
+.slide-menu .mega-octicon {
+  color: white;
+}
+.slide-menu .mega-octicon.octicon-arrow-right {
+  float: right;
+  cursor: pointer;
+}
+.slide-menu .langs-filter {
+  background-color: white;
+  border-radius: 3px;
+  margin: 1em;
+  padding: 1em;
+}
+.slide-menu .settings {
+  background-color: white;
+  margin: 1em;
+}
+.slide-menu .last-update {
+  color: #666666;
+  margin-left: 1em;
 }

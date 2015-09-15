@@ -1,14 +1,15 @@
 import * as React from 'react';
+import * as Slideout from 'slideout';
 import RepoStore from '../store';
 import * as Action from '../actions';
 import LangTrend from './lang-trend';
 import IconButton from './icon-button';
 import EmbeddedBrowser from './embedded-browser';
 import ErrorToast from './error-toast';
+import SlideMenu from './slide-menu';
 
 const ipc: ElectronRenderer.InProcess = global.require('ipc');
 const remote: ElectronRenderer.Remote = global.require('remote');
-const shell: ElectronRenderer.Shell = global.require('shell');
 
 interface TabProps {
     tabname: string;
@@ -81,51 +82,6 @@ class Trends extends React.Component<TrendsProps, {}> {
    }
 }
 
-interface LangSelectorProps {
-    onSelect: (selected: string) => void;
-    selected_lang: string;
-    langs: string[];
-}
-
-class LangSelector extends React.Component<LangSelectorProps, {}> {
-    constructor(props: LangSelectorProps) {
-        super(props);
-    }
-
-    langSelected(event) {
-        let selected: string = null;
-        for (const o of event.target.options) {
-            if (o.selected) {
-                if (o.value !== "any language") {
-                    selected = o.value;
-                    break;
-                }
-            }
-        }
-
-        if (selected !== this.props.selected_lang) {
-            this.props.onSelect(selected);
-        }
-    }
-
-    render() {
-        let key = 0;
-        let children = [
-            <option>any language</option>
-        ];
-
-        for (const lang of this.props.langs) {
-            children.push(<option key={key++}>{lang}</option>);
-        }
-
-        return (
-            <select className="select select-sm" onChange={this.langSelected.bind(this)}>
-                {children}
-            </select>
-        );
-    }
-}
-
 interface RootState {
     tab: string;
     selected_lang: string;
@@ -134,6 +90,7 @@ interface RootState {
 export default class Root extends React.Component<{}, RootState> {
     repo_listener: () => void;
     config: ConfigJSON;
+    slideout: SlideoutStatic.Slideout;
 
     constructor(props: {}) {
         super(props);
@@ -153,6 +110,12 @@ export default class Root extends React.Component<{}, RootState> {
         RepoStore.on('updated', this.repo_listener);
 
         remote.getCurrentWindow().on('focus', this.clearTrayIconOnNewTab.bind(this));
+
+        this.slideout = new Slideout({
+            panel: React.findDOMNode(this.refs['panel']),
+            menu: React.findDOMNode(this.refs['menu']),
+            side: 'right',
+        });
     }
 
     componentWillUnmount() {
@@ -168,7 +131,7 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    getReposToShow() {
+    getReposToShow(): UnorderedreposList | OrderedReposList {
         switch(this.state.tab) {
             case 'new':     return RepoStore.getUnreadRepos();
             case 'current': return RepoStore.getCurrentRepos();
@@ -197,15 +160,6 @@ export default class Root extends React.Component<{}, RootState> {
         }
     }
 
-    forceUpdateRepos() {
-        console.log('force update');
-        ipc.send('force-update-repos');
-    }
-
-    openConfigFile() {
-        shell.openItem(remote.getGlobal('config').path);
-    }
-
     getUserAgent() {
         if (this.config.mode === 'menubar') {
             return 'Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53';
@@ -215,6 +169,7 @@ export default class Root extends React.Component<{}, RootState> {
     }
 
     onLangSelected(selected: string) {
+        console.log('selected: ' + selected);
         this.setState({
             tab: this.state.tab,
             selected_lang: selected, 
@@ -238,29 +193,37 @@ export default class Root extends React.Component<{}, RootState> {
         const all_repos = this.getReposToShow();
         const repos = this.getSelectedRepos(all_repos);
 
+        const slidemenu_props = {
+            onLangSelect: this.onLangSelected.bind(this),
+            selected_lang: this.state.selected_lang,
+            repos: all_repos,
+            onClose: () => this.slideout.close(),
+        };
+
         return (
             <div className="root">
-                <div className="root-header">
-                    <div className="tabnav">
-                        <div className="tabnav-extra right">
-                            <LangSelector selected_lang={this.state.selected_lang} langs={Object.keys(all_repos)} onSelect={this.onLangSelected.bind(this)} />
+                <nav ref="menu">
+                    <SlideMenu {...slidemenu_props} />
+                </nav>
+                <main ref="panel">
+                    <div className="root-header">
+                        <div className="tabnav">
+                            <div className="tabnav-extra right">
+                                <IconButton mega icon="list-unordered" color="white" onClick={() => this.slideout.toggle()}/>
+                            </div>
+                            <nav className="tabnav-tabs">
+                                <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
+                                <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
+                                <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
+                            </nav>
                         </div>
-                        <nav className="tabnav-tabs">
-                            <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
-                            <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
-                            <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
-                        </nav>
                     </div>
-                </div>
-                <div className="contents">
-                    <ErrorToast/>
-                    <Trends repos={repos} kind={this.state.tab}/>
-                </div>
-                <div className="root-footer">
-                    <span className="last-update">{RepoStore.getLastUpdateTime()}</span>
-                    <IconButton icon="gear" color="white" onClick={this.openConfigFile}/>
-                    <IconButton icon="sync" color="white" onClick={this.forceUpdateRepos}/>
-                </div>
+                    <div className="contents">
+                        <ErrorToast/>
+                        <Trends repos={repos} kind={this.state.tab}/>
+                    </div>
+                    <div className="root-footer"/>
+                </main>
                 <EmbeddedBrowser/>
             </div>
         );
