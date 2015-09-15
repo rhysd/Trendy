@@ -18,6 +18,11 @@ export default class Config {
         }
     }
 
+    updateConfig(key: string, value: ConfigValue) {
+        this.cache[key] = value;
+        fs.writeFile(this.path, JSON.stringify(this.cache, null, 2));
+    }
+
     load(): ConfigJSON {
         if (this.cache !== null) {
             return this.cache;
@@ -34,7 +39,7 @@ export default class Config {
         }
         catch (_) {
             this.cache = this.defaultConfig();
-            fs.writeFile(this.path, JSON.stringify(this.cache, null, 2));
+            this.saveConfig();
         }
 
         return this.cache;

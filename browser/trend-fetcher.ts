@@ -2,6 +2,7 @@ import * as GHT from 'github-trend'
 import * as fs from 'fs';
 import * as path from 'path';
 import * as app from 'app';
+import invokeLangPicker from './lang-picker';
 
 const POLLING_INTERVAL = 3600000; // 1 hour
 const TEST_FILE_PATH = path.join(app.getPath('userData'), 'test.json');
@@ -30,6 +31,16 @@ export default class TrendFetcher {
 
         this.client.scraper.scrapeLanguageColors().then(colors => {
             this.renderer.send('lang-colors', colors);
+
+            if (this.langs.length === 0) {
+                return invokeLangPicker(colors);
+            } else {
+                return this.langs
+            }
+        }).then((langs: string[]) => {
+            this.langs = langs;
+            global.config.updateConfig('languages', langs);
+            this.doScraping();
         });
 
         const do_polling = () => {
@@ -40,7 +51,7 @@ export default class TrendFetcher {
             this.doScraping();
             setTimeout(do_polling, POLLING_INTERVAL);
         }
-        do_polling();
+        setTimeout(do_polling, POLLING_INTERVAL);
     }
 
     doScraping() {

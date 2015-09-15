@@ -65,7 +65,6 @@ export default class LangTrend extends React.Component<Props, {}> {
         const style = {
             backgroundColor: color || 'black'
         };
-        console.log(this.props.lang + ' style: ' + JSON.stringify(style));
 
         return <div className="color-bar" style={style}/>;
     }
