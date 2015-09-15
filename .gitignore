@@ -7,3 +7,4 @@ build
 *.js.map
 test.json
 renderer-ts-compiled
+langpicker-ts-compiled

@@ -49,7 +49,15 @@ task :build_renderer_src do
   sh "#{BIN}/browserify -d -o #{ROOT}/build/renderer/index.js #{ts_tmp_dir}/index.js"
 end
 
-task :build => %i(dep build_browser_src build_renderer_src)
+task :build_langpicker_src do
+  mkdir_p 'build/langpicker'
+
+  ts_tmp_dir = "#{ROOT}/langpicker-ts-compiled"
+  sh "#{BIN}/tsc -p #{ROOT}/langpicker"
+  sh "#{BIN}/browserify -d -o #{ROOT}/build/langpicker/index.js #{ts_tmp_dir}/index.js"
+end
+
+task :build => %i(dep build_browser_src build_renderer_src build_langpicker_src)
 
 task :run do
   sh "#{ROOT}/bin/cli.js"

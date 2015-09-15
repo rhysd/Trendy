@@ -8,3 +8,5 @@ tslint.json
 test.json
 typings
 renderer-ts-ignored
+langpicker
+langpicker-ts-ignored

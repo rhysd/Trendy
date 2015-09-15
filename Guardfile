@@ -10,4 +10,9 @@ guard :shell do
     puts "#{Time.now}: #{m[0]}"
     system 'rake build_renderer_src'
   end
+
+  watch %r[^langpicker/.+\.tsx?$] do |m|
+    puts "#{Time.now}: #{m[0]}"
+    system 'rake build_langpicker_src'
+  end
 end
