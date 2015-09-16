@@ -4,6 +4,7 @@ import * as app from 'app';
 import * as BrowserWindow from 'browser-window';
 import * as Tray from 'tray';
 import * as Menu from 'menu';
+import * as shortcut from 'global-shortcut';
 import TrendFetcher from './trend-fetcher';
 import Config from './config';
 import Auth from './authentication';
@@ -16,6 +17,9 @@ const normal_icon = path.join(__dirname, '..', '..', 'resource', 'trayicon', app
 const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'graph_notify.png');
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 const auth = new Auth(path.join(app.getPath('userData'), 'tokens.json'));
+
+function setupHotkey(window: GitHubElectron.BrowserWindow) {
+}
 
 function doLogin(fetcher: TrendFetcher, sender: GitHubElectron.WebContents) {
     auth.login().then((token: string) => {
@@ -52,6 +56,13 @@ function startMenubarApp() {
         ipc.on('tray-icon-normal', () => menu_window.tray.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => menu_window.tray.setImage(notified_icon));
         ipc.on('start-github-login', () => doLogin(fetcher, menu_window.window.webContents));
+
+        if (app_config.hot_key !== '') {
+            shortcut.register(
+                    app_config.hot_key,
+                    () => menu_window.window.isVisible() ? menu_window.hideWindow() : menu_window.showWindow()
+                );
+        }
     });
 }
 
@@ -96,6 +107,13 @@ function startIsolatedApp() {
         ipc.on('tray-icon-normal', () => app_icon.setImage(normal_icon));
         ipc.on('tray-icon-notified', () => app_icon.setImage(notified_icon));
         ipc.on('start-github-login', () => doLogin(fetcher, win.webContents));
+
+        if (app_config.hot_key !== '') {
+            shortcut.register(
+                    app_config.hot_key,
+                    () => win.isVisible() ? win.hide() : win.show()
+                );
+        }
     });
 }
 
@@ -104,3 +122,4 @@ if (app_config.mode === 'menubar') {
 } else {
     startIsolatedApp();
 }
+app.on('before-quit', () => shortcut.unregisterAll());

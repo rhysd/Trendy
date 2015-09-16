@@ -15,6 +15,7 @@ export default class Config {
             languages: [],
             icon_color: 'black',
             proxy: null,
+            hot_key: '',
         }
     }
 

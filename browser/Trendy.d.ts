@@ -6,6 +6,7 @@ interface ConfigJSON {
     languages: string[];
     icon_color: string;
     proxy: string;
+    hot_key: string;
     [key: string]: ConfigValue;
 }
 
