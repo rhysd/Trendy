@@ -58,7 +58,7 @@ export default class Repository extends React.Component<Props, State> {
                     </div>
                 </div>
                 <div className="primary">
-                    <IconButton icon="check" color="#4078c0" mega={true} visible={this.state.check_visible} onClick={this.props.onCheckClicked} />
+                    <IconButton mega icon="check" color="#4078c0" visible={this.state.check_visible} onClick={this.props.onCheckClicked} />
                     <div className="description">
                         {this.props.repo.description}
                     </div>

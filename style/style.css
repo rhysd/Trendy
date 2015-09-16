@@ -120,8 +120,15 @@ body {
 .repos {
   border-top: solid 1px #ddd;
 }
-.repos .lang {
+.repos .header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   background-color: #eeeeee;
+  border-left-style: solid;
+  border-left-width: 1em;
+}
+.repos .lang {
   text-align: center;
   padding: 0.5em;
   font-size: 1.1rem;
@@ -130,14 +137,10 @@ body {
 .repos .lang .lang-link {
   color: inherit;
 }
-.repos .header {
-  display: flex;
-  flex-direction: row;
-}
-.repos .color-bar {
+.repos .header .mega-octicon.octicon-check {
+  padding-right: 0.5em;
+  padding-left: 0.5em;
   flex: none;
-  min-height: 100%;
-  min-width: 1em;
 }
 
 .embedded-browser {

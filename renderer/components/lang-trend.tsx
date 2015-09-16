@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Repository from './repository';
+import IconButton from './icon-button';
 import * as Action from '../actions';
 import Store from '../store';
 
@@ -12,11 +13,19 @@ interface Props {
     show_check: boolean;
 }
 
-export default class LangTrend extends React.Component<Props, {}> {
+interface State {
+    show_mark_all: boolean;
+}
+
+export default class LangTrend extends React.Component<Props, State> {
     public static defaultProps = {show_check: false};
 
     constructor(props: Props) {
         super(props);
+
+        this.state = {
+            show_mark_all: false
+        };
     }
 
     repositories() {
@@ -36,14 +45,18 @@ export default class LangTrend extends React.Component<Props, {}> {
 
     getCheckCallback(repo: GitHubAPI.Repo) {
         if (this.props.show_check) {
-            return this.checkRepo.bind(this, repo.full_name);
+            return this.checkRepoAsRead.bind(this, repo.full_name);
         } else {
             return null;
         }
     }
 
-    checkRepo(full_name: string) {
+    checkRepoAsRead(full_name: string) {
         Action.checkUnread(this.props.lang, full_name);
+    }
+
+    checkAllReposAsRead() {
+        Action.checkUnread(this.props.lang, '*');
     }
 
     numRepos() {
@@ -60,20 +73,24 @@ export default class LangTrend extends React.Component<Props, {}> {
         openExternal('https://github.com/trending' + query);
     }
 
-    renderColorBar() {
-        const color = Store.getLangColor(this.props.lang);
-        const style = {
-            backgroundColor: color || 'black'
-        };
-
-        return <div className="color-bar" style={style}/>;
+    toggleCheck() {
+        this.setState({
+            show_mark_all: !this.state.show_mark_all
+        });
     }
 
     render() {
+        const header_props = {
+            style: {
+                borderLeftColor: Store.getLangColor(this.props.lang) || 'black'
+            },
+            onMouseOver: this.toggleCheck.bind(this),
+            onMouseOut: this.toggleCheck.bind(this),
+        };
+
         return (
             <div className="repos">
-                <div className="header">
-                    {this.renderColorBar()}
+                <div className="header" {...header_props}>
                     <div className="lang">
                         <span className="octicon octicon-pulse"/>
                         <a className="lang-link" href="#" onClick={this.onLangNameClicked.bind(this)}>
@@ -81,6 +98,7 @@ export default class LangTrend extends React.Component<Props, {}> {
                         </a>
                         <span className="counter">{this.numRepos()}</span>
                     </div>
+                    <IconButton mega icon="check" color="black" visible={this.state.show_mark_all} onClick={this.checkAllReposAsRead.bind(this)}/>
                 </div>
                 <div className="repo-list">
                     {this.repositories()}
