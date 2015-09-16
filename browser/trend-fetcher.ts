@@ -16,7 +16,7 @@ export default class TrendFetcher {
         this.stopped = true;
         for (const i in langs) {
             langs[i] = langs[i].toLowerCase();
-            if (langs[i] === 'any') {
+            if (langs[i] === 'all') {
                 langs[i] = '';
             }
         }
@@ -63,7 +63,7 @@ export default class TrendFetcher {
                     // Note:
                     // Replace language '' with readable name 'all languages'
                     if (repos[''] !== undefined) {
-                        repos['any'] = repos[''];
+                        repos['all'] = repos[''];
                         delete repos[''];
                     }
                     this.sendToRenderer(repos);
