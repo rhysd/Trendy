@@ -14,11 +14,6 @@ Keep You in the Trend
 - [x] Menu bar integrated window or isolated window.
 - [x] Embedded browser support
 
-## TODO
-
-- After language is selected in menu, the menu should be closed.
-- If authentication is already done and shown example.com, close the window and show 'something wrong...' error using `did-finish-loading` event of login window.
-
 ## Installation and Prepare
 
 __Note that now Trendy is heavily being developped.__

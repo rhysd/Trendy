@@ -81,6 +81,13 @@ export default class Authentication {
                 }
             });
 
+            auth_win.webContents.on('did-finish-load', (event: Event) => {
+                if (auth_win.webContents.getUrl() === 'https://example.com') {
+                    setTimeout(() => auth_win.close(), 0);
+                    reject(new Error('Already authorized.  Please revoke application access in your GitHub settings page.'));
+                }
+            });
+
             const url = 'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID;
             auth_win.loadUrl(url);
         }).then(this.authenticate.bind(this));
