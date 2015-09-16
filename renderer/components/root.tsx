@@ -169,11 +169,11 @@ export default class Root extends React.Component<{}, RootState> {
     }
 
     onLangSelected(selected: string) {
-        console.log('selected: ' + selected);
         this.setState({
             tab: this.state.tab,
             selected_lang: selected, 
         });
+        this.slideout.close();
     }
 
     getSelectedRepos(all) {
