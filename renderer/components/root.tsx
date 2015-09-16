@@ -205,24 +205,21 @@ export default class Root extends React.Component<{}, RootState> {
                 <nav ref="menu">
                     <SlideMenu {...slidemenu_props} />
                 </nav>
-                <main ref="panel">
-                    <div className="root-header">
-                        <div className="tabnav">
-                            <div className="tabnav-extra right">
-                                <IconButton mega icon="list-unordered" color="white" onClick={() => this.slideout.toggle()}/>
-                            </div>
-                            <nav className="tabnav-tabs">
-                                <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
-                                <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
-                                <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
-                            </nav>
+                <main className="contents-wrapper" ref="panel">
+                    <div className="tabnav">
+                        <div className="tabnav-extra right">
+                            <IconButton mega icon="list-unordered" color="white" onClick={() => this.slideout.toggle()}/>
                         </div>
+                        <nav className="tabnav-tabs">
+                            <Tab tabname="new" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'new')}>New <span className="counter">{this.unreadCount()}</span></Tab>
+                            <Tab tabname="current" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'current')}>Current</Tab>
+                            <Tab tabname="all" current={this.state.tab} onClick={this.onTabClicked.bind(this, 'all')}>All</Tab>
+                        </nav>
                     </div>
                     <div className="contents">
                         <ErrorToast/>
                         <Trends repos={repos} kind={this.state.tab}/>
                     </div>
-                    <div className="root-footer"/>
                 </main>
                 <EmbeddedBrowser/>
             </div>

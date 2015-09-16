@@ -1,40 +1,38 @@
 html, body {
+  height:100%;
+  width:100%;
+  margin:0;
+}
+body {
   outline: none;
-  margin: 0px;
-  padding: 0px;
-  overflow-x: hidden;
-  background-color: #333333;
+  overflow: hidden;
 }
 .root {
-  margin: 1rem;
-  margin: 1rem;
   background-color: #333333;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
 }
-.root-header {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  background-color: #333333;
-  padding: 1rem 1rem 0rem;
-  z-index: 1;
-}
-.root-footer {
-  position: fixed;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 1rem;
-  background-color: #333333;
-  z-index: 1;
+.contents-wrapper {
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 .contents {
-  padding-top: calc(8px * 2 + 1rem + 1rem); /*tab's padding * 2 + 1 font height + content's margin*/
+  display: block;
+  padding-top: 1em; /*tab's padding * 2 + 1 font height + content's margin*/
   background-color: white;
+  height: 100%; /*tab's padding * 2 + 1 font height*/
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex: auto;
 }
 
 .tabnav {
+  background-color: #333333;
   margin-bottom: 0px;
+  flex: none;
 }
 .tabnav-tab {
   color: #ddd;
@@ -146,7 +144,7 @@ html, body {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 2;
+  z-index: 1;
   height: 100vh;
   width: 100vw;
   font-size: 1rem;
@@ -239,7 +237,7 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 1;
   margin: 3em;
   min-width: calc(100vw - 6em);
 }
@@ -317,13 +315,14 @@ html, body {
 }
 .slide-menu .langs-filter {
   background-color: white;
-  border-radius: 3px;
+  border-radius: 0.5em;
   margin: 1em;
   padding: 1em;
 }
 .slide-menu .settings {
   background-color: white;
   margin: 1em;
+  border-radius: 0.5em;
 }
 .slide-menu .last-update {
   color: #666666;
