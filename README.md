@@ -3,7 +3,7 @@ Keep You in the Trend
 
 [Trendy](https://github.com/rhysd/Trendy) is a [GitHub Trending Repository](https://github.com/trending) viewer for trend-conscious people.  Trendy watches the GitHub trends and notifies the update to you.  The app can be integrated to menubar or used as isolated app.
 
-![ss](resource/image/main.png)
+![main screenshot](resource/image/usage.gif)
 
 ## Features
 
@@ -32,7 +32,7 @@ Trendy does polling GitHub trending repositories per hour to update the trends a
 
 ## Usage
 
-![usage screenshot](resource/image/usage.gif)
+![usage screenshot](resource/image/main.png)
 
 This gif describes general usage of Trendy.
 
