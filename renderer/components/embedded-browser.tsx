@@ -107,6 +107,7 @@ export default class EmbeddedBrowser extends React.Component<{}, State> {
     openUrlExternal() {
         let webview = document.getElementById('embedded-webview') as ElectronRenderer.Webview;
         openExternal(webview.getUrl());
+        this.close();
     }
 
     render() {
@@ -120,7 +121,7 @@ export default class EmbeddedBrowser extends React.Component<{}, State> {
                         <span className="mega-octicon octicon-arrow-right"/>
                     </span>
                     <span className="page-title" ref="title"/>
-                    <span className="page-external" onClick={this.openUrlExternal}>
+                    <span className="page-external" onClick={this.openUrlExternal.bind(this)}>
                         <span className="mega-octicon octicon-link-external"/>
                     </span>
                     <span className="browser-close" onClick={() => this.close()}>
