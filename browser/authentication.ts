@@ -64,7 +64,7 @@ export default class Authentication {
 
             auth_win.on('close', function(){ auth_win = null; });
 
-            auth_win.webContents.on('will-navigate', (event: Event, url: string) => {
+            const resolveCode = (event: Event, url: string) => {
                 event.preventDefault();
 
                 const raw_code = /code=([^&]*)/.exec(url) || null;
@@ -79,14 +79,10 @@ export default class Authentication {
                     setTimeout(() => auth_win.close(), 0);
                     resolve(code);
                 }
-            });
+            }
 
-            auth_win.webContents.on('did-finish-load', (event: Event) => {
-                if (auth_win.webContents.getUrl() === 'https://example.com') {
-                    setTimeout(() => auth_win.close(), 0);
-                    reject(new Error('Already authorized.  Please revoke application access in your GitHub settings page.'));
-                }
-            });
+            auth_win.webContents.on('will-navigate', (e: Event, u: string) => resolveCode(e, u));
+            auth_win.webContents.on('did-finish-load', (e: Event) => resolveCode(e, auth_win.webContents.getUrl()));
 
             const url = 'https://github.com/login/oauth/authorize?client_id=' + CLIENT_ID;
             auth_win.loadUrl(url);
