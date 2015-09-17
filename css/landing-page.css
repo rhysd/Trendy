@@ -30,18 +30,34 @@ h6 {
     font-weight: 400;
 }
 
+.intro-icon {
+  width: 200px;
+  height: 200px;
+}
+
+.intro-gif {
+  margin-bottom: 40px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.8);
+  -moz-box-shadow:    0px 0px 20px 0px rgba(255, 255, 255, 0.8);
+  box-shadow:         0px 0px 20px 0px rgba(255, 255, 255, 0.8);
+}
+
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../img/intro-bg.jpg) no-repeat center center;
+    /* background: url(../img/intro-bg.jpg) no-repeat center center; */
+    background-color: #333333;
     background-size: cover;
 }
 
 .intro-message {
     position: relative;
-    padding-top: 20%;
+    padding-top: 10%;
     padding-bottom: 20%;
 }
 
@@ -114,24 +130,12 @@ h6 {
 }
 
 .banner {
-    padding: 100px 0;
-    color: #f8f8f8;
-    background: url(../img/banner-bg.jpg) no-repeat center center;
-    background-size: cover;
-}
-
-.banner h2 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 3em;
-}
-
-.banner ul {
-    margin-bottom: 0;
+    padding: 20px 0;
+    background-color: #f8f8f8;
+    text-align: center;
 }
 
 .banner-social-buttons {
-    float: right;
     margin-top: 0;
 }
 
@@ -163,6 +167,7 @@ h6 {
 footer {
     padding: 50px 0;
     background-color: #f8f8f8;
+    text-align: center;
 }
 
 p.copyright {
