@@ -38,6 +38,6 @@
     "asar": "^0.8.0",
     "browserify": "^11.0.1",
     "electron-prebuilt": "^0.31.2",
-    "typescript": "^1.6.0-beta"
+    "typescript": "^1.6.0"
   }
 }

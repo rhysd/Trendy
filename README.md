@@ -13,6 +13,7 @@ Keep You in the Trend
 - [x] Cross platform (built on [Electron](https://github.com/atom/electron)).  For OS X, Linux and Windows.
 - [x] Menu bar integrated window or isolated window.
 - [x] Embedded browser support
+- [x] Language filters
 
 ## Installation and Prepare
 
@@ -33,8 +34,6 @@ Trendy does polling GitHub trending repositories per hour to update the trends a
 ## Usage
 
 ![usage screenshot](resource/image/main.png)
-
-This gif describes general usage of Trendy.
 
 ### __'New'__ tab
 
