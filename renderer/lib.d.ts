@@ -151,3 +151,7 @@ declare module ElectronRenderer {
     }
 
 }
+
+declare module "emojione" {
+    export var emojioneList: {[short: string]: string[]};
+}

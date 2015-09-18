@@ -27,6 +27,7 @@
     "start": "./bin/cli.js"
   },
   "dependencies": {
+    "emojione": "^1.5.0",
     "flux": "^2.1.1",
     "github-trend": "^0.0.5",
     "menubar": "^2.2.1",

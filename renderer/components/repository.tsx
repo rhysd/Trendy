@@ -1,6 +1,7 @@
 import * as React from 'react';
 import ExternalLink from './external-link';
 import IconButton from './icon-button';
+import EmojiText from './emoji-text';
 
 interface Props {
     repo: GitHubAPI.Repo;
@@ -60,7 +61,7 @@ export default class Repository extends React.Component<Props, State> {
                 <div className="primary">
                     <IconButton mega icon="check" color="#4078c0" visible={this.state.check_visible} onClick={this.props.onCheckClicked} />
                     <div className="description">
-                        {this.props.repo.description}
+                        <EmojiText text={this.props.repo.description}/>
                     </div>
                 </div>
                 <div className="footer">
