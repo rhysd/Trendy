@@ -59,10 +59,10 @@ class RepoStore extends EventEmitter {
 
     getLastUpdateTime() {
         if (this.last_update === 0) {
-            return "";
+            return '';
         }
 
-        return "Updated at " + new Date(this.last_update).toLocaleTimeString();
+        return 'Updated at ' + new Date(this.last_update).toLocaleTimeString();
     }
 
     getAllColors() {
