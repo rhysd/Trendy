@@ -40,6 +40,9 @@ body {
 .tabnav-extra {
   padding-top: 0px;
 }
+.isolated .tabnav-extra .mega-octicon {
+  display: none;
+}
 .select {
   outline: none;
 }
@@ -306,6 +309,10 @@ body {
   min-width: 256px;
   float: right;
 }
+.isolated .slide-menu {
+  min-width: 160px;
+  float: left;
+}
 .slide-menu h2 {
   margin: 1em 1em 0em;
 }
@@ -315,6 +322,9 @@ body {
 .slide-menu .mega-octicon.octicon-arrow-right {
   float: right;
   cursor: pointer;
+}
+.isolated .slide-menu .mega-octicon.octicon-arrow-right {
+  display: none;
 }
 .slide-menu .langs-filter {
   background-color: white;
