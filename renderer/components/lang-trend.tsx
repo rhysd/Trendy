@@ -82,7 +82,7 @@ export default class LangTrend extends React.Component<Props, State> {
     render() {
         const markable = this.props.show_check && this.state.show_mark_all;
 
-        const header_props = {
+        const header_props: React.CSSProperties = {
             style: {
                 borderLeftColor: Store.getLangColor(this.props.lang) || 'black',
                 cursor: markable ? 'pointer' : '',
