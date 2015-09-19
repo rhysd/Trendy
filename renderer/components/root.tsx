@@ -111,11 +111,13 @@ export default class Root extends React.Component<{}, RootState> {
 
         remote.getCurrentWindow().on('focus', this.clearTrayIconOnNewTab.bind(this));
 
-        this.slideout = new Slideout({
-            panel: React.findDOMNode(this.refs['panel']),
-            menu: React.findDOMNode(this.refs['menu']),
-            side: 'right',
-        });
+        if (this.config.mode === 'menubar') {
+            this.slideout = new Slideout({
+                panel: React.findDOMNode(this.refs['panel']),
+                menu: React.findDOMNode(this.refs['menu']),
+                side: 'right',
+            });
+        }
     }
 
     componentWillUnmount() {
@@ -201,7 +203,7 @@ export default class Root extends React.Component<{}, RootState> {
         };
 
         return (
-            <div className="root">
+            <div className={this.config.mode === 'menubar' ? 'root' : 'root isolated'}>
                 <nav ref="menu">
                     <SlideMenu {...slidemenu_props} />
                 </nav>
