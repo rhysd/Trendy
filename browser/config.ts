@@ -8,14 +8,26 @@ export default class Config {
     }
 
     private defaultConfig(): ConfigJSON {
-        return {
-            mode: 'menubar',
-            width: 400,
-            height: 400,
-            languages: [],
-            icon_color: 'black',
-            proxy: null,
-            hot_key: '',
+        if (process.platform === 'win32') {
+            return {
+                mode: 'isolated',
+                width: 800,
+                height: 1000,
+                languages: [],
+                icon_color: 'white',
+                proxy: null,
+                hot_key: '',
+            }
+        } else {
+            return {
+                mode: 'menubar',
+                width: 400,
+                height: 400,
+                languages: [],
+                icon_color: 'black',
+                proxy: null,
+                hot_key: '',
+            }
         }
     }
 
