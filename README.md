@@ -1,9 +1,13 @@
 ![Trendy](resource/image/title.jpg)
 =====================
 
+[![npm version](https://badge.fury.io/js/trendy.svg)](http://badge.fury.io/js/trendy)
+[![Build Status](https://travis-ci.org/rhysd/Shiba.svg)](https://travis-ci.org/rhysd/Shiba)
+
 [Trendy](https://github.com/rhysd/Trendy) is a [GitHub Trending Repository](https://github.com/trending) viewer for trend-conscious people.  Trendy watches the GitHub trends and notifies the update to you.  The app can be integrated to menubar or used as isolated app.
 
 ![main screenshot](resource/image/usage.gif)
+
 
 ## Features
 
@@ -14,6 +18,7 @@
 - [x] Menu bar integrated window or isolated window.
 - [x] Embedded browser support
 - [x] Language filters
+
 
 ## Installation and Prepare
 
@@ -30,6 +35,7 @@ First, Trendy scrapes trending pages and calls GitHub API to get repositories' i
 After a while, the result will be shown in the menu window.
 
 Trendy does polling GitHub trending repositories per hour to update the trends and to notify it to you.
+
 
 ## Usage
 
@@ -67,11 +73,14 @@ You can access to menu by clicking right above menu button.  The menu includes l
 
 Setting `mode` value to `"isolated"` in `config.json` enables isolated window (Path to `config.json` is described in next section).
 In stead of menu window, Trendy main window shows up as isolated window.
-In some environment (especially Windows), menubar integration may not work.  If so, please enable isolated window mode and use it.
+In Windows environment, this isolated window is enabled by default because menubar window works only when task bar is put to bottom.
 
 ![isolated window screen shot](resource/image/isolated.png)
 
+
 ## Customization
+
+### Config File
 
 You can customize Trendy by modifying `config.json`.
 
@@ -80,6 +89,21 @@ You can customize Trendy by modifying `config.json`.
 | OS X    | `~/Library/Application\ Support/Trendy/config.json` |
 | Linux   | `~/.config/Trendy/config.json`                      |
 | Windows | `%APPDATA%\Trendy\config.json`                      |
+
+You can access this file by 'Settings' in side menu.
+
+### Config Values
+
+| Name        | Default     | Description                                         |
+| ----------- | ----------- | --------------------------------------------------- |
+| mode        | `'menubar'` | Window mode, `'menubar'` or `'isolated'`            |
+| width       | `400`       | Window width                                        |
+| height      | `400`       | Window height                                       |
+| languages   | `[]`        | Languages to watch.  You can leave this value empty |
+| icon\_color | `'black'`   | Menu icon color, `'black'` or `'white'`             |
+| proxy       | `''`        | URL for proxy                                       |
+| hot\_key    | `''`        | Hot key to toggle window.  Format is [here](https://github.com/atom/electron/blob/master/docs/api/accelerator.md) |
+
 
 ## License
 

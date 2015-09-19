@@ -65,13 +65,12 @@ export default class Authentication {
             auth_win.on('close', function(){ auth_win = null; });
 
             const resolveCode = (event: Event, url: string) => {
-                event.preventDefault();
-
                 const raw_code = /code=([^&]*)/.exec(url) || null;
                 const code = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
                 const error = /\?error=(.+)$/.exec(url);
 
                 if (error) {
+                    event.preventDefault();
                     console.log('login failed!');
                     setTimeout(() => auth_win.close(), 0);
                     reject(error);

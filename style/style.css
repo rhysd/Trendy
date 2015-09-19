@@ -119,6 +119,10 @@ body {
   color: #999999;
   float: right;
 }
+.repo .emoji-text .emoji {
+  width: 1em;
+  height: 1em;
+}
 
 .repos {
   border-top: solid 1px #ddd;

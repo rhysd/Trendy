@@ -41,6 +41,10 @@ export default class TrendFetcher {
         }).then((langs: string[]) => {
             this.langs = langs;
             global.config.updateConfig('languages', langs);
+        }).catch(err => {
+            // Skip scraping language colors
+            console.log('Scraping language error: ' + err.message);
+        }).then(() => {
             this.doScraping();
         });
 
