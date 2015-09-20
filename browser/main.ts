@@ -123,3 +123,4 @@ if (app_config.mode === 'menubar') {
     startIsolatedApp();
 }
 app.on('before-quit', () => shortcut.unregisterAll());
+app.on('window-all-closed', () => app.quit());

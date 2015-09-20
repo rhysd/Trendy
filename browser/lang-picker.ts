@@ -21,7 +21,7 @@ export default function invokeLangPicker(colors: {[lang: string]: string}) {
             if (langs.length === 0) {
                 langs.push('all');
             }
-            resolve(langs.length === 0 ? ['all'] : langs);
+            resolve(langs);
         });
     }).catch(err => {
         console.log(err);

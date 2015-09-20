@@ -131,7 +131,7 @@ class LangPicker extends React.Component<LangPickerProps, LangPickerState> {
 }
 
 ipc.on('lang-picker-data', (langs: LangColors) => {
-    langs['any'] = 'black';
+    langs['all'] = 'black';
 
     React.render(
             <LangPicker langs={langs}/>,
