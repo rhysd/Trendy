@@ -317,17 +317,21 @@ body {
   min-width: 160px;
   float: left;
 }
-.slide-menu h2 {
+.slide-menu .menu-header {
   margin: 1em 1em 0em;
+  display: flex;
+}
+.slide-menu .menu-header .search-input {
+  flex: auto;
 }
 .slide-menu .mega-octicon {
   color: white;
-}
-.slide-menu .mega-octicon.octicon-arrow-right {
+  margin-left: 0.5em;
   float: right;
   cursor: pointer;
+  flex: none;
 }
-.isolated .slide-menu .mega-octicon.octicon-arrow-right {
+.isolated .slide-menu .mega-octicon {
   display: none;
 }
 .slide-menu .langs-filter {

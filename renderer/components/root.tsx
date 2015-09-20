@@ -85,6 +85,7 @@ class Trends extends React.Component<TrendsProps, {}> {
 interface RootState {
     tab: string;
     selected_lang: string;
+    search_word: string;
 }
 
 export default class Root extends React.Component<{}, RootState> {
@@ -98,14 +99,17 @@ export default class Root extends React.Component<{}, RootState> {
         this.state = {
             tab: 'current',
             selected_lang: null,
+            search_word: '',
         };
         this.config = remote.getGlobal('config').load();
     }
 
     componentDidMount() {
+        // TODO: Use update instead of setState
         this.repo_listener = () => this.setState({
             tab: this.state.tab,
             selected_lang: this.state.selected_lang,
+            search_word: this.state.search_word,
         });
         RepoStore.on('updated', this.repo_listener);
 
@@ -158,6 +162,7 @@ export default class Root extends React.Component<{}, RootState> {
             this.setState({
                 tab: tabname,
                 selected_lang: this.state.selected_lang,
+                search_word: this.state.search_word,
             });
         }
     }
@@ -173,33 +178,85 @@ export default class Root extends React.Component<{}, RootState> {
     onLangSelected(selected: string) {
         this.setState({
             tab: this.state.tab,
-            selected_lang: selected, 
+            selected_lang: selected,
+            search_word: this.state.search_word,
         });
         this.slideout.close();
     }
 
-    getSelectedRepos(all) {
-        const l = this.state.selected_lang;
-        if (l === null) {
-            return all;
+    shouldSelect(repo) {
+        if (repo.full_name.indexOf(this.state.search_word) !== -1) {
+            return true;
         }
 
+        if (repo.description.indexOf(this.state.search_word) !== -1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    filterBySearch(repos) {
+        if (!this.state.search_word) {
+            return repos;
+        }
+
+        if (repos instanceof Array) {
+            let filtered = [];
+            for (const repo of repos) {
+                if (this.shouldSelect(repo)) {
+                    filtered.push(repo);
+                }
+            }
+            return filtered;
+        } else {
+            let filtered = {};
+            for (const full_name in repos) {
+                const r = repos[full_name];
+                if (this.shouldSelect(r)) {
+                    filtered[full_name] = r;
+                }
+            }
+            return filtered;
+        }
+    }
+
+    getSelectedRepos(trends) {
+        const l = this.state.selected_lang;
         let selected = {};
-        selected[l] = all[l];
+
+        if (l === null) {
+            for (const lang in trends) {
+                selected[lang] = this.filterBySearch(trends[lang]);
+            }
+        } else {
+            selected[l] = this.filterBySearch(trends[l]);
+        }
+
         return selected;
+    }
+
+    setSearchWord(word: string) {
+        this.setState({
+            tab: this.state.tab,
+            selected_lang: this.state.selected_lang,
+            search_word: word,
+        });
+        this.slideout.close();
     }
 
     render() {
         this.clearTrayIconOnNewTab();
 
-        const all_repos = this.getReposToShow();
-        const repos = this.getSelectedRepos(all_repos);
+        const all_trends = this.getReposToShow();
+        const trends = this.getSelectedRepos(all_trends);
 
         const slidemenu_props = {
             onLangSelect: this.onLangSelected.bind(this),
             selected_lang: this.state.selected_lang,
-            repos: all_repos,
+            trends: all_trends,
             onClose: () => this.slideout.close(),
+            onSearch: this.setSearchWord.bind(this),
         };
 
         return (
@@ -220,7 +277,7 @@ export default class Root extends React.Component<{}, RootState> {
                     </div>
                     <div className="contents">
                         <ErrorToast/>
-                        <Trends repos={repos} kind={this.state.tab}/>
+                        <Trends repos={trends} kind={this.state.tab}/>
                     </div>
                 </main>
                 <EmbeddedBrowser/>

@@ -9,7 +9,8 @@ export interface SlideMenuProps {
     onLangSelect: (selected: string) => void;
     onClose: () => void;
     selected_lang: string;
-    repos: {[lang: string]: any[] | Object};
+    trends: {[lang: string]: any[] | Object};
+    onSearch: (word: string) => void;
 }
 
 export default class SlideMenu extends React.Component<SlideMenuProps, {}> {
@@ -27,8 +28,8 @@ export default class SlideMenu extends React.Component<SlideMenuProps, {}> {
 
     calcRepoCounts() {
         let counts: {[lang: string]: number} = {};
-        for (const lang in this.props.repos) {
-            const repo = this.props.repos[lang];
+        for (const lang in this.props.trends) {
+            const repo = this.props.trends[lang];
             if (repo instanceof Array) {
                 counts[lang] = repo.length;
             } else {
@@ -86,13 +87,20 @@ export default class SlideMenu extends React.Component<SlideMenuProps, {}> {
         remote.require('app').quit();
     }
 
+    onSearchInputKey(event) {
+        if (String.fromCharCode(event.charCode) === '\r') {
+            console.log(event.target.value);
+            this.props.onSearch(event.target.value);
+        }
+    }
+
     render() {
         return (
             <div className="slide-menu">
-                <h2>
-                    <span className="mega-octicon octicon-octoface"/>
-                    <span className="mega-octicon octicon-arrow-right" onClick={this.props.onClose}/>
-                </h2>
+                <div className="menu-header">
+                    <input className="search-input" type="text" placeholder="Search..." onKeyPress={this.onSearchInputKey.bind(this)}/>
+                    <span className="mega-octicon octicon-x" onClick={this.props.onClose}/>
+                </div>
                 <div className="langs-filter">
                     {this.renderLangFilters()}
                 </div>
