@@ -318,7 +318,7 @@ body {
   float: left;
 }
 .slide-menu .menu-header {
-  margin: 1em 1em 0em 0em;
+  margin: 1rem 1em 0em 0em;
   display: flex;
 }
 .slide-menu .menu-header .search-input {

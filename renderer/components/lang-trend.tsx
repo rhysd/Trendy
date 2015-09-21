@@ -85,7 +85,6 @@ export default class LangTrend extends React.Component<Props, State> {
         const header_props: React.CSSProperties = {
             style: {
                 borderLeftColor: Store.getLangColor(this.props.lang) || 'black',
-                cursor: markable ? 'pointer' : '',
             },
             onMouseOver: this.toggleCheck.bind(this),
             onMouseOut: this.toggleCheck.bind(this),
@@ -101,7 +100,7 @@ export default class LangTrend extends React.Component<Props, State> {
                         </a>
                         <span className="counter">{this.numRepos()}</span>
                     </div>
-                    <IconButton mega icon="check" color="black" visible={markable} onClick={this.checkAllReposAsRead.bind(this)}/>
+                    <IconButton mega icon="check" color="black" visible={markable} onClick={markable ? this.checkAllReposAsRead.bind(this) : null}/>
                 </div>
                 <div className="repo-list">
                     {this.repositories()}

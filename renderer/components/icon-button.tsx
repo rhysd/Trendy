@@ -32,7 +32,7 @@ export default class IconButton extends React.Component<Props, {}> {
         };
 
         props.style = {
-            cursor: this.props.onClick ? 'pointer' : '',
+            cursor: this.props.visible && this.props.onClick ? 'pointer' : '',
             color: this.props.visible && this.props.onClick ? this.props.color : 'transparent',
         };
 
