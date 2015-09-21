@@ -102,6 +102,7 @@ export default class Root extends React.Component<{}, RootState> {
             search_word: '',
         };
         this.config = remote.getGlobal('config').load();
+        this.slideout = null;
     }
 
     componentDidMount() {
@@ -181,7 +182,7 @@ export default class Root extends React.Component<{}, RootState> {
             selected_lang: selected,
             search_word: this.state.search_word,
         });
-        this.slideout.close();
+        this.slideout && this.slideout.close();
     }
 
     shouldSelect(repo) {
@@ -242,7 +243,7 @@ export default class Root extends React.Component<{}, RootState> {
             selected_lang: this.state.selected_lang,
             search_word: word,
         });
-        this.slideout.close();
+        this.slideout && this.slideout.close();
     }
 
     render() {
