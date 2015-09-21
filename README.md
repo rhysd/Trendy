@@ -103,6 +103,7 @@ You can access this file by 'Settings' in side menu.
 | icon\_color | `'black'`   | Menu icon color, `'black'` or `'white'`             |
 | proxy       | `''`        | URL for proxy                                       |
 | hot\_key    | `''`        | Hot key to toggle window.  Format is [here](https://github.com/atom/electron/blob/master/docs/api/accelerator.md) |
+| auto\_start | `false`     | Automatically start Trendy as OS starts up          |
 
 
 ## License

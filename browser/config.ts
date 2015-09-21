@@ -17,7 +17,8 @@ export default class Config {
                 icon_color: 'white',
                 proxy: null,
                 hot_key: '',
-            }
+                auto_start: false,
+            };
         } else {
             return {
                 mode: 'menubar',
@@ -27,7 +28,8 @@ export default class Config {
                 icon_color: 'black',
                 proxy: null,
                 hot_key: '',
-            }
+                auto_start: false,
+            };
         }
     }
 

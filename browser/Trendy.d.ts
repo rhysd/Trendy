@@ -1,4 +1,4 @@
-declare type ConfigValue = string | number | string[];
+declare type ConfigValue = string | number | string[] | boolean;
 interface ConfigJSON {
     mode: string;
     width: number;
@@ -7,6 +7,7 @@ interface ConfigJSON {
     icon_color: string;
     proxy: string;
     hot_key: string;
+    auto_start: boolean;
     [key: string]: ConfigValue;
 }
 

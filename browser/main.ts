@@ -5,10 +5,10 @@ import * as BrowserWindow from 'browser-window';
 import * as Tray from 'tray';
 import * as Menu from 'menu';
 import * as shortcut from 'global-shortcut';
+import * as AutoLaunch from 'auto-launch';
 import TrendFetcher from './trend-fetcher';
 import Config from './config';
 import Auth from './authentication';
-
 
 global.config = new Config(path.join(app.getPath('userData'), 'config.json'));
 const app_config = global.config.load();
@@ -18,8 +18,21 @@ const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'g
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 const auth = new Auth(path.join(app.getPath('userData'), 'tokens.json'));
 
-function setupHotkey(window: GitHubElectron.BrowserWindow) {
-}
+const auto_start = new AutoLaunch({
+    name: 'Trendy',
+    path: process.execPath.match(/.*?\.app/)[0],
+});
+
+auto_start.isEnabled(enabled => {
+    console.log('auto start: ' + enabled);
+    if (enabled && !app_config.auto_start) {
+        console.log('Disable auto start');
+        auto_start.disable(err => console.log(err.message));
+    } else if (!enabled && app_config.auto_start) {
+        console.log('Enable auto start');
+        auto_start.enable(err => console.log(err.message));
+    }
+});
 
 function doLogin(fetcher: TrendFetcher, sender: GitHubElectron.WebContents) {
     auth.login().then((token: string) => {
