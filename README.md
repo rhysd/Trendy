@@ -67,12 +67,12 @@ By clicking links in the window, embedded browser slides in.  It shows mobile pa
 
 ### __Language Filters and Options__
 
-You can access to menu by clicking right above menu button.  The menu includes language filters and options.  Language filters filter the repositories in the menu window by language.  Options can force to update the trends, show settings file by your favorite editor and exit Trendy.
+You can access to menu by clicking right above menu button.  The menu includes word search, language filters and options.  Language filters filter the repositories in the menu window by language.  Options can force to update the trends, show settings file by your favorite editor and exit Trendy.
 
-### Isolated Window
+### __Isolated Window__
 
 Setting `mode` value to `"isolated"` in `config.json` enables isolated window (Path to `config.json` is described in next section).
-In stead of menu window, Trendy main window shows up as isolated window.
+Instead of menu window, Trendy main window shows up as isolated window.  Side menu, which is hidden in menu window, is always shown in isolated window mode.
 In Windows environment, this isolated window is enabled by default because menubar window works only when task bar is put to bottom.
 
 ![isolated window screen shot](resource/image/isolated.png)
