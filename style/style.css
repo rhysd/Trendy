@@ -318,7 +318,7 @@ body {
   float: left;
 }
 .slide-menu .menu-header {
-  margin: 1em 1em 0em;
+  margin: 1em 1em 0em 0em;
   display: flex;
 }
 .slide-menu .menu-header .search-input {
@@ -337,12 +337,12 @@ body {
 .slide-menu .langs-filter {
   background-color: white;
   border-radius: 0.5em;
-  margin: 1em;
+  margin: 1em 1em 1em 0em;
   padding: 1em;
 }
 .slide-menu .settings {
   background-color: white;
-  margin: 1em;
+  margin: 1em 1em 1em 0em;
   border-radius: 0.5em;
 }
 .slide-menu .last-update {
