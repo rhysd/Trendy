@@ -10,10 +10,11 @@ const TEST_FILE_PATH = path.join(app.getPath('userData'), 'test.json');
 export default class TrendFetcher {
     client: GHT.Client;
     stopped: boolean;
+    last_timeout_id: NodeJS.Timer;
 
     constructor(private renderer: GitHubElectron.WebContents, public langs: string[], proxy?: string) {
         this.client = new GHT.Client({proxy: proxy});
-        this.stopped = true;
+        this.last_timeout_id = null;
         for (const i in langs) {
             langs[i] = langs[i].toLowerCase();
             if (langs[i] === 'all') {
@@ -28,7 +29,6 @@ export default class TrendFetcher {
 
     start() {
         console.log('start!');
-        this.stopped = false;
 
         this.client.scraper.scrapeLanguageColors().then(colors => {
             this.renderer.send('lang-colors', colors);
@@ -48,14 +48,21 @@ export default class TrendFetcher {
             this.doScraping();
         });
 
+        this.startPolling();
+    }
+
+    startPolling() {
+        this.stop();
         const do_polling = () => {
-            if (this.stopped) {
-                return;
-            }
             this.doScraping();
-            setTimeout(do_polling, POLLING_INTERVAL);
+            this.last_timeout_id = setTimeout(do_polling, POLLING_INTERVAL);
         }
-        setTimeout(do_polling, POLLING_INTERVAL);
+        this.last_timeout_id = setTimeout(do_polling, POLLING_INTERVAL);
+    }
+
+    forceScraping() {
+        this.doScraping();
+        this.startPolling(); // Restart
     }
 
     doScraping() {
@@ -94,6 +101,9 @@ export default class TrendFetcher {
     }
 
     stop(): void {
-        this.stopped = true;
+        if (this.last_timeout_id !== null) {
+            clearTimeout(this.last_timeout_id);
+            this.last_timeout_id = null;
+        }
     }
 }
