@@ -49,15 +49,15 @@ export default class SlideMenu extends React.Component<SlideMenuProps, {}> {
 
     renderLangFilters() {
         const lang_counts = this.calcRepoCounts();
+        let key = 0;
 
         let filters = [
-            <a href="#" className={this.getFileterItemClass(null)} onClick={this.props.onLangSelect.bind(this, null)}>
+            <a href="#" className={this.getFileterItemClass(null)} onClick={this.props.onLangSelect.bind(this, null)} key={key++}>
                 <span className="count">{this.calcAllCount(lang_counts)}</span>
                 any
             </a>
         ];
 
-        let key = 0;
         for (const lang in lang_counts) {
             filters.push(
                 <a href="#" className={this.getFileterItemClass(lang)} key={key++} onClick={this.props.onLangSelect.bind(this, lang)}>
