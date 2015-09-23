@@ -1,7 +1,6 @@
 ![Trendy](resource/image/title.jpg)
 =====================
 
-[![npm version](https://badge.fury.io/js/trendy.svg)](http://badge.fury.io/js/trendy)
 [![Build Status](https://travis-ci.org/rhysd/Trendy.svg?branch=master)](https://travis-ci.org/rhysd/Trendy)
 
 [Trendy](https://github.com/rhysd/Trendy) is a [GitHub Trending Repository](https://github.com/trending) viewer for trend-conscious people.  Trendy watches the GitHub trends and notifies the update to you.  The app can be integrated to menubar or used as isolated app.
@@ -24,7 +23,7 @@ GitHub trending repositofy page is one of my favorite pages.  However, GitHub pr
 
 ## Installation and Prepare
 
-[Release page](https://github.com/rhysd/Trendy/releases) and [npm package](https://www.npmjs.com/package/trendy) are available.
+Download zip file from [Release Page](https://github.com/rhysd/Trendy/releases).
 
 If you download and unzip application release from GitHub, please click executable to start.
 
