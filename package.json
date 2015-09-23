@@ -1,7 +1,7 @@
 {
   "name": "trendy",
   "productName": "Trendy",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Menubar app to keep you in the loop of trend",
   "main": "./build/browser/main.js",
   "bin": {

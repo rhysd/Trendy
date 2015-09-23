@@ -6,6 +6,8 @@
 
 [Trendy](https://github.com/rhysd/Trendy) is a [GitHub Trending Repository](https://github.com/trending) viewer for trend-conscious people.  Trendy watches the GitHub trends and notifies the update to you.  The app can be integrated to menubar or used as isolated app.
 
+GitHub trending repositofy page is one of my favorite pages.  However, GitHub provides no API for it and I had to access each language's trend pages and had to find new repositories among many popular repositories.  Trendy was made to improve the experience.
+
 ![main screenshot](resource/image/usage.gif)
 
 
@@ -22,9 +24,7 @@
 
 ## Installation and Prepare
 
-__Note that now Trendy is heavily being developped.__
-
-[Alpha release](https://github.com/rhysd/Trendy/releases) and [npm package](https://www.npmjs.com/package/trendy) are available.
+[Release page](https://github.com/rhysd/Trendy/releases) and [npm package](https://www.npmjs.com/package/trendy) are available.
 
 If you download and unzip application release from GitHub, please click executable to start.
 
