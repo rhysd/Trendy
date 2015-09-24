@@ -24,6 +24,10 @@ export default class EmojiText extends React.Component<Props, {}> {
     }
 
     render() {
+        if (!this.props.text) {
+            return <span className="emoji-text">{this.props.text}</span>;
+        }
+
         const matched = this.props.text.match(RE_EMOJI);
 
         if (!matched) {
