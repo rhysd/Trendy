@@ -18,21 +18,23 @@ const notified_icon =path.join(__dirname, '..', '..', 'resource', 'trayicon', 'g
 const index_html = 'file://' + path.join(__dirname, '..', '..', 'index.html');
 const auth = new Auth(path.join(app.getPath('userData'), 'tokens.json'));
 
-const auto_start = new AutoLaunch({
-    name: 'Trendy',
-    path: process.execPath.match(/.*?\.app/)[0],
-});
+if (process.platform === 'darwin') {
+    const auto_start = new AutoLaunch({
+        name: 'Trendy',
+        path: process.execPath.match(/.*?\.app/)[0],
+    });
 
-auto_start.isEnabled(enabled => {
-    console.log('auto start: ' + enabled);
-    if (enabled && !app_config.auto_start) {
-        console.log('Disable auto start');
-        auto_start.disable(err => console.log(err.message));
-    } else if (!enabled && app_config.auto_start) {
-        console.log('Enable auto start');
-        auto_start.enable(err => console.log(err.message));
-    }
-});
+    auto_start.isEnabled(enabled => {
+        console.log('auto start: ' + enabled);
+        if (enabled && !app_config.auto_start) {
+            console.log('Disable auto start');
+            auto_start.disable(err => console.log(err.message));
+        } else if (!enabled && app_config.auto_start) {
+            console.log('Enable auto start');
+            auto_start.enable(err => console.log(err.message));
+        }
+    });
+}
 
 function doLogin(fetcher: TrendFetcher, sender: GitHubElectron.WebContents) {
     auth.login().then((token: string) => {
