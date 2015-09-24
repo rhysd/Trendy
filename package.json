@@ -1,7 +1,7 @@
 {
   "name": "trendy",
   "productName": "Trendy",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Menubar app to keep you in the loop of trend",
   "main": "./build/browser/main.js",
   "bin": {
@@ -38,7 +38,7 @@
   "devDependencies": {
     "asar": "^0.8.0",
     "browserify": "^11.0.1",
-    "electron-prebuilt": "^0.31.2",
+    "electron-prebuilt": "^0.33.0",
     "typescript": "^1.6.0"
   }
 }
