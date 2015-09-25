@@ -68,7 +68,7 @@ task :all => %i(build run)
 task :asar do
   mkdir_p 'archive/resource'
   begin
-    %w(bower.json package.json index.html style build).each{|p| cp_r p, 'archive/' }
+    %w(bower.json package.json langpicker.html index.html style build).each{|p| cp_r p, 'archive/' }
     %w(emoji trayicon).each{|p| cp_r "resource/#{p}", 'archive/resource/'}
     cd 'archive' do
       sh 'npm install --production'
