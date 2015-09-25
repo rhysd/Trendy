@@ -81,9 +81,10 @@ body {
   margin-right: 0.2em;
 }
 .repo .secondary {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
+  word-break: break-all;
 }
 .repo .secondary .title {
   flex: auto;
@@ -108,7 +109,7 @@ body {
   font-size: 0.875em;
 }
 .repo .secondary .metadata > * {
-  margin-right: 0.5em;
+  margin-left: 0.5em;
   min-width: 5em;
 }
 .repo .footer .lang-name {
@@ -310,7 +311,6 @@ body {
 }
 
 .slide-menu {
-  min-width: 256px;
   float: right;
 }
 .isolated .slide-menu {
