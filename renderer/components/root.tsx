@@ -190,7 +190,7 @@ export default class Root extends React.Component<{}, RootState> {
             return true;
         }
 
-        if (repo.description.indexOf(this.state.search_word) !== -1) {
+        if (repo.description && repo.description.indexOf(this.state.search_word) !== -1) {
             return true;
         }
 
