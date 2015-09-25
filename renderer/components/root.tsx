@@ -185,12 +185,21 @@ export default class Root extends React.Component<{}, RootState> {
         this.slideout && this.slideout.close();
     }
 
-    shouldSelect(repo) {
-        if (repo.full_name.indexOf(this.state.search_word) !== -1) {
+    includesAnyWord(text, words) {
+        for (const w of words) {
+            if (w && text.indexOf(w) !== -1) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    shouldSelect(repo, words) {
+        if (this.includesAnyWord(repo.full_name, words)) {
             return true;
         }
 
-        if (repo.description && repo.description.indexOf(this.state.search_word) !== -1) {
+        if (repo.description && this.includesAnyWord(repo.description, words)) {
             return true;
         }
 
@@ -202,10 +211,12 @@ export default class Root extends React.Component<{}, RootState> {
             return repos;
         }
 
+        const words = this.state.search_word.split(/\s+/);
+
         if (repos instanceof Array) {
             let filtered = [];
             for (const repo of repos) {
-                if (this.shouldSelect(repo)) {
+                if (this.shouldSelect(repo, words)) {
                     filtered.push(repo);
                 }
             }
@@ -214,7 +225,7 @@ export default class Root extends React.Component<{}, RootState> {
             let filtered = {};
             for (const full_name in repos) {
                 const r = repos[full_name];
-                if (this.shouldSelect(r)) {
+                if (this.shouldSelect(r, words)) {
                     filtered[full_name] = r;
                 }
             }
