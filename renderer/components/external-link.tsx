@@ -3,7 +3,7 @@ import * as Action from '../actions';
 
 const openExternal: (url: string) => void = global.require("shell").openExternal;
 
-export function openExternalLink(event: React.SyntheticEvent) {
+export function openExternalLink(event: React.MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -11,7 +11,11 @@ export function openExternalLink(event: React.SyntheticEvent) {
     let target: any = event.target;
     while (target !== null) {
         if (target.href !== undefined && target.className.indexOf("external-link") === 0) {
-            Action.openURL(target.href);
+            if ((event.nativeEvent as MouseEvent).metaKey) {
+                openExternal(target.href);
+            } else {
+                Action.openURL(target.href);
+            }
             return;
         }
         target = target.parentNode;
