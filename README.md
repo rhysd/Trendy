@@ -105,6 +105,24 @@ You can access this file by 'Settings' in side menu.
 | auto\_start | `false`     | Automatically start Trendy as OS starts up          |
 
 
+## Development
+
+### Requirements
+
+Below tools are required to develop Trendy.
+
+- [npm](https://www.npmjs.com/) (Bundled with node.js)
+- [bower](https://github.com/bower/bower)
+- [tsd](https://github.com/DefinitelyTyped/tsd)
+- [rake](https://github.com/ruby/rake) (Bundled with Ruby)
+
+### Build and Start App
+
+```bash
+$ rake build
+$ npm start
+```
+
 ## License
 
 Distributed under [the MIT License](LICENSE.txt).
