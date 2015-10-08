@@ -40,7 +40,7 @@ Trendy does polling GitHub trending repositories per hour to update the trends a
 If you want to participate in the development of Trendy or just encountered bug and want give more details to developers execute next commands:
 
 ```bash
-git clone https://github.com/rhysd/Trendy
+git clone https://github.com/rhysd/Trendy.git
 cd Trendy
 npm install
 npm start
