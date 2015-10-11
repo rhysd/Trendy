@@ -119,7 +119,7 @@ Below tools are required to develop Trendy.
 ### Build and Start App
 
 ```bash
-$ rake build
+$ npm install
 $ npm start
 ```
 

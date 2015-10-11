@@ -24,6 +24,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "postinstall": "npm i -g tsd && rake build",
     "start": "./bin/cli.js"
   },
   "dependencies": {
