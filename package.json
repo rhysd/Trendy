@@ -23,8 +23,22 @@
     "url": "https://github.com/rhysd/Trendy/issues"
   },
   "license": "MIT",
+  "scripts": {
+    "build": "tsc -p ./ts && browserify -d ./build/js/index.js -o ./build/bundle.js",
+    "build-production": "echo 'TODO'",
+    "watch-bundle": "watchify -v -d ./build/js/index.js -o 'exorcist ./build/bundle.js.map > ./build/bundle.js'",
+    "watch-ts": "tsc --watch -p ./ts",
+    "http-server": "http-server ./build/ -p 1234",
+    "dev": "./scripts/start-dev.sh"
+  },
   "dependencies": {
   },
   "devDependencies": {
+    "browserify": "^14.5.0",
+    "exorcist": "^1.0.0",
+    "http-server": "^0.10.0",
+    "npm-run-all": "^4.1.2",
+    "typescript": "^2.6.2",
+    "watchify": "^3.9.0"
   }
 }
