@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { FullRepository } from 'github-trend';
 export default [
   {

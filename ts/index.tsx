@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './containers/App';
+import App from './components/app';
 import Store from './store';
 import { scrapeDummyTrends } from './services/scrape';
 
