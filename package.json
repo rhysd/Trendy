@@ -32,13 +32,39 @@
     "dev": "./scripts/start-dev.sh"
   },
   "dependencies": {
+    "@types/react-redux": "^5.0.14",
+    "dexie": "^2.0.1",
+    "github": "^13.0.1",
+    "github-markdown-css": "^2.10.0",
+    "github-trend": "^0.2.1",
+    "highlight.js": "^9.12.0",
+    "immutable": "^3.8.2",
+    "marked": "github:rhysd/marked#emoji",
+    "mousetrap": "^1.6.1",
+    "primer": "^10.2.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-sortable-pane": "^0.6.8",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
+    "@types/marked": "^0.3.0",
+    "@types/mousetrap": "^1.6.0",
+    "@types/react": "^16.0.31",
+    "@types/react-dom": "^16.0.3",
+    "@types/redux": "^3.6.0",
     "browserify": "^14.5.0",
+    "electron": "^1.7.10",
+    "envify": "^4.1.0",
     "exorcist": "^1.0.0",
     "http-server": "^0.10.0",
     "npm-run-all": "^4.1.2",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.2",
+    "uglifyify": "^4.0.5",
     "watchify": "^3.9.0"
   }
 }

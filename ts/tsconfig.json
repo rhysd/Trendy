@@ -10,7 +10,8 @@
     "noUnusedParameters": true,
     "noEmitOnError": true,
     "target": "es2015",
-    "sourceMap": true
+    "sourceMap": true,
+    "jsx": "react"
   },
   "include": [
     "**/*.ts",
