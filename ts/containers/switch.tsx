@@ -2,9 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import State, { TrendsState } from '../state';
 import Loading from '../components/loading';
+import LangTrends from '../components/lang_trends';
 
 interface SwitchProps {
-    trends: TrendsState; 
+    trends: TrendsState;
 }
 
 // Switch app's main contents by the state of components
@@ -16,13 +17,11 @@ interface SwitchProps {
 class Switch extends React.Component<SwitchProps> {
     render() {
         if (this.props.trends.size === 0) {
-            return (
-                <Loading/>
-            );
+            return <Loading />;
         }
-        return (
-            <div>TODO: show content</div>
-        );
+
+        // XXX: Temporary
+        return <LangTrends name={''} trends={this.props.trends.get('')} />;
     }
 }
 

@@ -32,7 +32,68 @@ body {
 .header {
   flex: none;
   font-size: 2rem;
-  padding: 8px;
+  padding: 0.5rem;
   color: white;
 }
 
+.trends-list {
+  margin: 1rem;
+  overflow-y: scroll;
+}
+
+.trends-list_header {
+  text-align: center;
+}
+
+.trends-list_item {
+  padding: 1rem;
+}
+
+.repo {
+  display: flex;
+  flex-direction: column;
+}
+
+.repo_slug-sep {
+  margin: 0 0.3em;
+}
+
+.repo_footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.3em;
+}
+
+.repo_lang {
+  flex: none;
+  display: flex;
+  align-items: center;
+  margin-right: 0.5em;
+}
+
+.repo_lang-color {
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.1em;
+}
+
+.repo_description {
+  margin: 0.3em 0;
+  font-size: 1.1em;
+}
+
+.repo_counter {
+  display: flex;
+  align-items: center;
+  margin: 0 0.5em;
+}
+
+.repo_counter-icon {
+  margin-right: 0.3em;
+}
+
+.spacer {
+  flex: auto;
+}
