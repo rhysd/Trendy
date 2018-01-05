@@ -27,12 +27,14 @@
     "stylelint": "stylelint build/css/main.css",
     "tslint": "tslint -p ts/",
     "lint": "npm-run-all -p stylelint tslint",
-    "build": "tsc -p ./ts && browserify -d ./build/js/index.js -o ./build/bundle.js",
+    "build-ts": "tsc --pretty -p ./ts",
+    "build": "npm run build-ts && browserify -d ./build/js/index.js -o ./build/bundle.js",
     "build-production": "echo 'TODO'",
     "watch-bundle": "watchify -v -d ./build/js/index.js -o 'exorcist ./build/bundle.js.map > ./build/bundle.js'",
     "watch-ts": "tsc --watch -p ./ts",
     "http-server": "http-server ./build/ -p 1234",
-    "dev": "./scripts/start-dev.sh"
+    "dev": "./scripts/start-dev.sh",
+    "postinstall": "./scripts/symlink-css.sh"
   },
   "dependencies": {
     "@types/react-redux": "^5.0.14",

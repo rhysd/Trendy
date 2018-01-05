@@ -11,15 +11,29 @@ if [ "$(tmux -list-panes | wc -l)" -gt 1 ]; then
     exit 2
 fi
 
-tmux split-window -h -c "#{pane_current_path}"
-tmux split-window -v -c "#{pane_current_path}"
+cols="$(tput cols)"
+lines="$(tput lines)"
 
-tmux send-keys -t 0 'npm run watch-ts' Enter
-tmux send-keys -t 1 'npm run watch-bundle' Enter
-tmux send-keys -t 2 'npm run http-server' Enter
+if (( lines * 3 > cols )); then
+    tmux split-window -v -c "#{pane_current_path}"
+    tmux select-pane -U
+    tmux split-window -h -c "#{pane_current_path}"
+
+    tmux send-keys -t 0 'npm run watch-bundle' Enter
+    tmux send-keys -t 1 'npm run http-server' Enter
+    tmux send-keys -t 2 'npm run watch-ts' Enter
+else
+    tmux split-window -h -c "#{pane_current_path}"
+    tmux split-window -v -c "#{pane_current_path}"
+
+    tmux send-keys -t 0 'npm run watch-ts' Enter
+    tmux send-keys -t 1 'npm run watch-bundle' Enter
+    tmux send-keys -t 2 'npm run http-server' Enter
+fi
+
 
 # Wait for HTTP server starting
-sleep 1
+sleep 3
 
 case $OSTYPE in
     darwin*)
