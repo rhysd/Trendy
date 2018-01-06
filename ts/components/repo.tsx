@@ -53,8 +53,8 @@ export default class Repo extends React.PureComponent<RepoProps, {}> {
         const { repo } = this.props;
 
         let lang;
-        if (this.props.forAll) {
-            const style = { backgroundColor: repo.langColor || 'black' };
+        if (this.props.forAll && repo.langColor) {
+            const style = { backgroundColor: repo.langColor };
             lang = (
                 <div className="repo_lang">
                     <span className="repo_lang-color" style={style} />
