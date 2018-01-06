@@ -51,6 +51,7 @@
     "react-component-octicons": "^1.1.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
+    "react-sortable-hoc": "^0.6.8",
     "redux": "^3.7.2"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "@types/mousetrap": "^1.6.0",
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
+    "@types/react-sortable-hoc": "^0.6.1",
     "@types/redux": "^3.6.0",
     "browserify": "^14.5.0",
     "electron": "^1.7.10",
