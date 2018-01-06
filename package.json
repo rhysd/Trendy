@@ -51,7 +51,6 @@
     "react-component-octicons": "^1.1.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
-    "react-sortable-pane": "^0.6.8",
     "redux": "^3.7.2"
   },
   "devDependencies": {
