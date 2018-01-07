@@ -47,6 +47,7 @@
     "no-debugger": true,
     "no-duplicate-variable": true,
     "no-empty": true,
+    "no-empty-interface": false,
     "no-eval": true,
     "no-inferrable-types": false,
     "no-internal-module": true,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FullRepository } from 'github-trend';
 import Octicon from 'react-component-octicons';
 
-interface RepoProps extends React.Props<Repo> {
+interface RepoProps {
     repo: FullRepository;
     forAll: boolean;
 }
