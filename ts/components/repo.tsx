@@ -38,7 +38,10 @@ export default class Repo extends React.PureComponent<RepoProps, {}> {
         return <div className="repo_description text-gray">{desc}</div>;
     }
 
-    private renderStarred(count: number) {
+    private renderStarred(count: number | null) {
+        if (!count) {
+            return undefined;
+        }
         return (
             <div className="repo_counter">
                 <span className="repo_counter-icon">
@@ -82,7 +85,7 @@ export default class Repo extends React.PureComponent<RepoProps, {}> {
                 {forked}
                 <div className="spacer" />
                 {this.renderStarred(repo.todaysStars)}
-                stars today
+                {repo.todaysStars ? 'stars today' : ''}
             </div>
         );
     }
