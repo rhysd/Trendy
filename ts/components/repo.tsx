@@ -35,7 +35,7 @@ export default class Repo extends React.PureComponent<RepoProps, {}> {
     private renderDescription() {
         const { repo } = this.props;
         const desc = repo.description || '';
-        return <div className="repo_description text-gray">{desc}</div>;
+        return <div className="repo_description text-gray-dark">{desc}</div>;
     }
 
     private renderStarred(count: number | null) {

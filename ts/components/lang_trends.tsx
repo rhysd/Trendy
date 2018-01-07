@@ -41,9 +41,9 @@ export default class LangTrends extends React.PureComponent<LangTrendsProps, {}>
     private renderHeader() {
         const { name } = this.props;
         return (
-            <h2 className="lang-trends_header" onClick={this.scrollListToTop}>
-                {name || 'All'}
-            </h2>
+            <div className="lang-trends_header text-gray" onClick={this.scrollListToTop}>
+                <h2>{name || 'All'}</h2>
+            </div>
         );
     }
 }
