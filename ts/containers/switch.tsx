@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import State, { TrendsState } from '../state';
 import Loading from '../components/loading';
-import LangTrends from '../components/lang_trends';
+import MultiColumns from '../components/multi_columns';
 
 interface SwitchProps {
     trends: TrendsState;
@@ -21,7 +21,7 @@ class Switch extends React.Component<SwitchProps> {
         }
 
         // XXX: Temporary
-        return <LangTrends name={''} trends={this.props.trends.get('')} />;
+        return <MultiColumns trends={this.props.trends} />;
     }
 }
 
