@@ -9,6 +9,8 @@ export default class SideMenu extends React.PureComponent<SideMenuProps, {}> {
             <div className="side-menu">
                 <Octicon name="flame" />
                 <Octicon name="octoface" />
+                <div className="spacer" />
+                <Octicon name="gear" />
             </div>
         );
     }

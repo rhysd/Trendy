@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import State, { TrendsState } from '../state';
-import Loading from '../components/loading';
+import State, { TrendsState, ConfigState } from '../state';
+import Config from '../components/config';
 import MultiColumns from '../components/multi_columns';
 
 interface LayoutSwitchProps {
     trends: TrendsState;
+    config: ConfigState;
 }
 
 // Switch app's main contents by the state of components
@@ -17,7 +18,7 @@ interface LayoutSwitchProps {
 class LayoutSwitch extends React.Component<LayoutSwitchProps> {
     render() {
         if (this.props.trends.size === 0) {
-            return <Loading />;
+            return <Config config={this.props.config} />;
         }
 
         // XXX: Temporary
@@ -28,6 +29,7 @@ class LayoutSwitch extends React.Component<LayoutSwitchProps> {
 function mapStateToProps(s: State) {
     return {
         trends: s.trends,
+        config: s.config,
     };
 }
 
