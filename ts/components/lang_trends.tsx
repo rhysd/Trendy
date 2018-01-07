@@ -21,9 +21,9 @@ export default class LangTrends extends React.PureComponent<LangTrendsProps, {}>
         const { name, trends } = this.props;
         const list = trends.map((repo, i) => this.renderTrend(repo, name, i));
         return (
-            <div className="lang-trends bg-white border-right">
+            <div className="lang-trends">
                 {this.renderHeader()}
-                <div className="lang-trends_repos-list" ref={e => (this.list = e)}>
+                <div className="lang-trends_repos-list bg-white" ref={e => (this.list = e)}>
                     {list}
                 </div>
             </div>
@@ -41,7 +41,7 @@ export default class LangTrends extends React.PureComponent<LangTrendsProps, {}>
     private renderHeader() {
         const { name } = this.props;
         return (
-            <h2 className="lang-trends_header border-bottom bg-gray-light" onClick={this.scrollListToTop}>
+            <h2 className="lang-trends_header" onClick={this.scrollListToTop}>
                 {name || 'All'}
             </h2>
         );

@@ -47,6 +47,8 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   overflow-y: scroll;
+  padding: 0.5rem;
+  background-color: #f1f8ff;
 }
 
 .lang-trends {
@@ -54,15 +56,24 @@ body {
   min-width: 450px;
 }
 
+.lang-trends > * {
+  margin-right: 0.5rem;
+}
+
 .lang-trends_header {
   text-align: center;
   height: 2.5rem;
+  border: 1px solid #c8e1ff;
+  background-color: #f1f8ff;
+  border-radius: 4px 4px 0 0;
 }
 
 .lang-trends_repos-list {
   height: calc(100% - 2.5rem);
   overflow-y: scroll;
   padding: 0 1rem;
+  border-right: 1px #e1e4e8 solid;
+  border-left: 1px #e1e4e8 solid;
 }
 
 .lang-trends_item {

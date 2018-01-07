@@ -15,6 +15,6 @@ export default class MultiColumns extends React.Component<MultiColumnsProps, {}>
             .map(([name, repos], i) => <LangTrends name={name} trends={repos} key={i} />);
     }
     render() {
-        return <div className="multi-columns">{this.renderColumns()}</div>;
+        return <div className="multi-columns bg-gray-light">{this.renderColumns()}</div>;
     }
 }
