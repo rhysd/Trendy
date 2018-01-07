@@ -9,18 +9,13 @@ interface LangTrendsProps {
 }
 
 export default class LangTrends extends React.PureComponent<LangTrendsProps, {}> {
-    renderTrend(repo: FullRepository, lang: string, key: number) {
-        return (
-            <div className="lang-trends_item border-bottom" key={key}>
-                <Repo repo={repo} forAll={!lang || lang === 'all'} />
-            </div>
-        );
-    }
+    private list: HTMLDivElement;
 
-    renderHeader() {
-        const { name } = this.props;
-        return <h2 className="lang-trends_header border-bottom bg-gray-light">{name || 'All'}</h2>;
-    }
+    scrollListToTop = () => {
+        if (this.list !== undefined) {
+            this.list.scrollTop = 0;
+        }
+    };
 
     render() {
         const { name, trends } = this.props;
@@ -28,8 +23,27 @@ export default class LangTrends extends React.PureComponent<LangTrendsProps, {}>
         return (
             <div className="lang-trends bg-white border-right">
                 {this.renderHeader()}
-                <div className="lang-trends_repos-list">{list}</div>
+                <div className="lang-trends_repos-list" ref={e => (this.list = e)}>
+                    {list}
+                </div>
             </div>
+        );
+    }
+
+    private renderTrend(repo: FullRepository, lang: string, key: number) {
+        return (
+            <div className="lang-trends_item border-bottom" key={key}>
+                <Repo repo={repo} forAll={!lang || lang === 'all'} />
+            </div>
+        );
+    }
+
+    private renderHeader() {
+        const { name } = this.props;
+        return (
+            <h2 className="lang-trends_header border-bottom bg-gray-light" onClick={this.scrollListToTop}>
+                {name || 'All'}
+            </h2>
         );
     }
 }

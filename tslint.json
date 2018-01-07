@@ -80,7 +80,7 @@
       "jsx-double"
     ],
     "radix": true,
-    "semicolon": true,
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "switch-default": true,
     "trailing-comma": [
       true,
