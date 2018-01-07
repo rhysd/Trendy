@@ -4,7 +4,7 @@ import State, { TrendsState } from '../state';
 import Loading from '../components/loading';
 import MultiColumns from '../components/multi_columns';
 
-interface SwitchProps {
+interface LayoutSwitchProps {
     trends: TrendsState;
 }
 
@@ -14,7 +14,7 @@ interface SwitchProps {
 // - When some trends fetched and window width is narrow -> tabs mode
 // - When some trends fetched and window width is not narrow -> multi pane mode
 
-class Switch extends React.Component<SwitchProps> {
+class LayoutSwitch extends React.Component<LayoutSwitchProps> {
     render() {
         if (this.props.trends.size === 0) {
             return <Loading />;
@@ -31,4 +31,4 @@ function mapStateToProps(s: State) {
     };
 }
 
-export default connect(mapStateToProps)(Switch);
+export default connect(mapStateToProps)(LayoutSwitch);

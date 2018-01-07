@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './components/app';
 import Store from './store';
-import { scrapeDummyTrends } from './services/scrape';
+import { scrapeDummyTrends } from './services/scraping';
 
 render(
     <Provider store={Store}>
